@@ -1,0 +1,15 @@
+<table class="numbers_table">
+	<tr ng-repeat="actionNumbersRaw in actionNumbersMatrix track by $index">
+		<td ng-repeat="num in actionNumbersRaw track by $index" class="table-td-{{getStatus(num)}}">
+			<span ng-if="getStatus(num) == 'selected'">
+				{{num}}
+			</span>
+			<span ng-if="getStatus(num) == 'active'">
+				{{num}}
+			</span>
+			<span ng-if="getStatus(num) == 'free'" ng-click="CampaignComposeService.campaignData[interactionName] = num; camelInteraction.showNumbersSelect = false;">
+				{{num}}
+			</span>
+		</td>
+	</tr>
+</table>

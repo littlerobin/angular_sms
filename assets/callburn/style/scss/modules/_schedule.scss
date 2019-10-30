@@ -1,0 +1,327 @@
+body > .container {
+  background: #ffffff;
+}
+
+.header .bg-primary.text-center.panel-heading p {
+  padding: 2px;
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0px 10px;
+  color: #ffffff;
+}
+
+.header .bg-primary.text-center.panel-heading {
+  background: $callburn-blue;
+}
+
+.header p.text-center.pgraph {
+  color: $callburn-blue-light;
+  margin: 25px 10px 50px;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.pgraph-container {
+  margin-top: 30px;
+}
+
+.full button span {
+  background-color: limegreen;
+  border-radius: 32px;
+  color: black;
+}
+
+.partially button span {
+  background-color: orange;
+  border-radius: 32px;
+  color: black;
+}
+
+.modal-dialog.modal-90 {
+  width: 90%;
+}
+
+table.uib-daypicker th {
+  vertical-align: middle;
+  padding-bottom: 10px;
+}
+
+.modal-body ul li {
+  list-style-type: none;
+  display: flex;
+}
+
+li.row {
+  list-style-type: none;
+  margin-bottom: 12px;
+  margin-top: 12px;
+}
+
+.square {
+  height: 37px !important;
+  width: 37px !important;
+  margin-right: 12px;
+}
+.schedule-border{
+  border: 2px solid #79BDFB;
+  padding: 0 0px 10px 0px;
+  margin-top: 5px;
+  text-align: center !important;
+  .timeslot_top {
+    height: 25px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &.darkerColorBlue {
+      background: rgb(98, 178, 247);
+    }
+    &.darkerColorOrange {
+      background: rgb(255, 152, 0);
+    }
+    &.darkerColorRed {
+      background: rgb(243, 86, 83);
+    }
+    &.darkerColorCyan {
+      background: rgb(98, 243, 229);
+    }
+  }
+}
+.round{
+  margin-top: 16px;
+  position: relative;
+  display: inline-block;
+  &::before{
+    content: "\f021";
+    font-family: FontAwesome;
+    position: absolute;
+    font-size: 20px;
+    color: #fff;
+    z-index: 1;
+    width: 100%;
+    left: 0px;
+    cursor: pointer;
+    line-height: 39px;
+  }
+}
+
+.week-picker{
+  display: inline-block !important;
+}
+.week-cl{
+  display: inline-block !important;
+}
+
+.week-cl.item-field,
+.week-picker.item-field {
+  padding-top: 15px;
+  display: inline-block;
+}
+
+.col-md-2.sel {
+  padding-right: 0;
+  padding-left: 10px;
+}
+
+select.form-control.hours, select.form-control.minutes {
+  height: 28px;
+  border-radius: 15px;
+  border: 1px solid #23bdff;
+  padding: 3px 5px;
+}
+
+.week-picker .form-group .form-control label,
+.week-picker .form-group .form-control input,
+.week-picker .form-group .form-control p {
+  display: inline-block;
+}
+
+.week-picker input {
+  height: 38px;
+  border-radius: 15px;
+  border: 1px solid $callburn-blue-light;
+  width: 60px !important;
+}
+
+.scroller p {
+  font-size: 12px;
+  margin: 0 !important;
+}
+
+.item-field {
+  text-align: center;
+  display: inline-block;
+  &.fa-minus-circle{
+    font-size: 15px;
+  }
+  .error {
+    border: 2px solid red;
+  }
+  input {
+    width: 60px;
+    padding: 0 5px;
+  }
+}
+
+.item-field button {
+  border-radius: 50%;
+  min-height: 38px;
+}
+
+.schedule .btn {
+  min-height: 38px;
+  max-width: 240px;
+  white-space: initial;
+}
+
+.modal-body.schedule {
+  width: 1300px;
+}
+div#calendar {
+  background: #fff;
+}
+
+span.glyphicon.glyphicon-trash {
+  padding-top: 2px;
+}
+
+.fc-scroller.fc-day-grid-container {
+  height: inherit !important;
+}
+
+.header p.text-center.pgraph {
+  color: $callburn-blue-light;
+  margin: 9px 0px 6px 0px;
+}
+
+.scroller.item-field {
+  width: 115px;
+  position: relative;
+}
+
+.col-xs-6.col-sm-4.block-1 {
+  text-align: center;
+}
+
+.block-2 {
+  margin-top: 17px;
+  padding-left: 5px;
+}
+
+.week-cl .btn-group label.btn {
+  padding: 8px;
+  background-color: #ffffff !important;
+  font-weight: bold;
+}
+
+.week-cl label.btn.btn-default.active {
+  background-color: $callburn-blue-light !important;
+  color: #ffffff !important;
+}
+
+.rzslider .rz-pointer {
+  top: -8px;
+  width: 20px;
+  height: 20px;
+}
+
+.rzslider .rz-pointer:after {
+  top: 7px;
+  left: 7px;
+  width: 6px;
+  height: 6px;
+}
+.recipients-count-to-call{
+  display: inline-block !important;
+  margin-right: 15px;
+  .item-field {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    input {
+      margin-right: 5px;
+    }
+    span {
+      font-size: 18px;
+      font-weight: bold;
+    }
+  }
+}
+.inner_popover {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+}
+.timezone-img-container{
+  display: inline-block !important;
+  margin-right: 15px;
+  position: relative;
+  & > img{
+    display: block;
+    margin: 0 auto;
+    padding: 0 54px;
+  }
+}
+
+.delivery-img-container {
+  display: inline-block !important;
+  img{
+    display: block;
+    margin: 0 auto;
+  }
+}
+
+.default-by-day-container {
+  margin-left: 45px;
+}
+
+.default-by-day-container label {
+  margin-top: 0px;
+}
+
+span.time {
+  padding-left: 0;
+  color: $callburn-blue;
+  font-weight: bold;
+}
+
+.customize-modal.calendar button.close {
+  margin-top: 15px !important;
+  margin-right: 12px;
+  font-size: 35px;
+}
+
+.customize-modal.calendar button.close span {
+  color: #ffffff;
+  font-weight: bold;
+}
+
+td.fc-day.fc-past {
+  background-color: #EEEEEE;
+  pointer-events: none;
+  cursor: default;
+}
+
+.col-xs-6.col-sm-4.block-1 .calendar-span {
+  display: inline-block;
+}
+
+div#external-events {
+  display: inline-block;
+}
+
+div#external-events .btn-danger {
+  cursor: pointer;
+  margin-left: 0px;
+}
+
+.block-2 li.row.ng-scope {
+  margin-bottom: 0px;
+}
+.Why-i-cannot-select {
+  color: #df635d;
+}

@@ -1,0 +1,18 @@
+<div class="relative_video" ng-init="scrollToBot()" id="">
+    <div class="youtube_carousel_holder">
+        <h1>{{trans('look_our_video_tutorial')}}</h1>
+        <br>
+        <slick settings="CTCslickConfig" ng-if="CTCVideosIframe.length">
+            <div ng-repeat="item in CTCVideosIframe track by $index">
+                <iframe width="100%" frameborder="0" id="ctc-video-{{$index}}" allowfullscreen="" ng-src="{{getTutorialVideos(item)}}"></iframe>
+            </div>
+        </slick>
+    </div>
+</div>
+<div>
+    <h1>{{trans('service_description')}}</h1>
+    <br>
+    <div class="service_iframe">
+        <iframe ng-src="{{getIframeUrl('ctc')}}" style="" frameborder="0" width="100%" height="100%"></iframe>
+    </div>
+</div>

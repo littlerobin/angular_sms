@@ -1,0 +1,53 @@
+<!-- ADD TO GROUP MODAL -->
+<div class="customize-modal settings-modal">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" data-ng-click="hideOverlay()"><span
+                aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">{{trans('All attempts')}}</h4>
+    </div>
+    <div class="modal-body">
+        <div class="modal_window">
+            <div class="modal_container ">
+                <div class="modal_select_container modal_select_container1">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <td>
+                                Date time
+                            </td>
+                            <td>
+                                Status
+                            </td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="attempt in phonenumber.manual_retries | orderBy: '-created_at'">
+                            <td>
+                                {{attempt.created_at}}
+                            </td>
+                            <td ng-bind-html="getStatus(attempt)">
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {{phonenumber.created_at}}
+                            </td>
+                            <td ng-bind-html="getStatus(phonenumber)">
+
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <a class="send-again" ng-show="showCallCodeField" ng-click="sendVerificationCall()" ng-disabled="!newCallerId.phonenumber.$valid">{{trans('account_settings_send_again')}}</a>
+    <div class="text-center color_white">
+        <button type="" class="btn btn-lg button_padding_60px" ng-click="close()">Close</button>
+    </div>
+</div>
+
+<!-- END ADD TO GROUP MODAL -->

@@ -1,0 +1,62 @@
+<div class="col-lg-12 nav-aside">
+    <div class="row">
+        <ul class="list-unstyled">
+            <!-- <li ng-class="{active: currentActiveUrl == 'docs'}">
+                <a href="#" ui-sref="docs">
+                    <span ng-class="{active: currentActiveUrl == 'docs'}">
+                        <span>{{trans('support_tickets_menu_documentation')}}</span>
+                    </span>
+                </a>
+            </li> -->
+            <li ng-class="{active: currentActiveUrl == 'video'}" ng-click="dropdownVideoItemsHolder = !dropdownVideoItemsHolder">
+                <a href="#" ui-sref="video">
+                    <span ng-class="{active: currentActiveUrl == 'video'}" >
+                        <span>{{trans('support_tickets_menu_support_video_tutorials')}}</span>
+                    </span>
+                </a>
+            </li>
+            <ul ng-show="dropdownVideoItemsHolder">
+                <li ng-click="enableDisableItem('CTC')" ng-class="{active: dropdownVideoItemCTC}">
+                    <a href="">Click To Call</a>
+                </li>
+                <ul ng-show="dropdownVideoItemCTC">
+                    <li ng-click="enableDisableItem('ctc-tutorial')"
+                        ng-class="{active: dropdownVideoItemCTCTutorial}">
+                        <a href="">Tutorial</a>
+                    </li>
+                    <li ng-click="enableDisableItem('ctc-promotional')"
+                        ng-class="{active: dropdownVideoItemCTCPromotional}">
+                        <a href="">Promotional</a>
+                    </li>
+                </ul>
+                <li ng-click="enableDisableItem('VM')" ng-class="{active: dropdownVideoItemVM}">
+                    <a href="">Voice messages</a>
+                </li>
+                <ul ng-show="dropdownVideoItemVM">
+                    <li ng-click="enableDisableItem('vm-tutorial')"
+                        ng-class="{active: dropdownVideoItemVMTutorial}">
+                        <a href="">Tutorial</a>
+                    </li>
+                    <li ng-click="enableDisableItem('vm-promotional')"
+                        ng-class="{active: dropdownVideoItemVMPromotional}">
+                        <a href="">Promotional</a>
+                    </li>
+                </ul>
+            </ul>
+            <li>
+                <a href="" ng-click="triggerChat()">
+                    <span>
+                        <span>{{trans('support_tickets_menu_support_contact_us')}}</span>
+                    </span>
+                </a>
+            </li>
+            <!-- <li ng-class="{active: currentActiveUrl == 'tickets'}">
+                <a href="#" ui-sref="tickets">
+                    <span ng-class="{active: currentActiveUrl == 'tickets'}">
+                        <span>{{trans('support_tickets_menu_support_tickets')}}</span>
+                    </span>
+                </a>
+            </li> -->
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,51 @@
+<!-- ADD TO GROUP MODAL -->
+<div class="customize-modal">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" data-ng-click="hideOverlay()"><span
+                aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">{{trans('modals_addressbook_modal_add_modal_add_new_contact')}}</h4>
+    </div>
+    <div class="modal-body">
+        <div class="modal_window">
+            <div class="modal_container">
+                <div class="modal_select_container modal_select_container1">
+                    <form name="addContacts">
+                        <div class="form-inline account-settings-modal-content">
+                            <div class="form-group" style="width: 36%;display: inline-block;margin-bottom: 0;">
+                                <div class="account-settings-modal" ng-class="{'default-image-step-1':classes.defaultClass}">
+                                    <callburn-select
+                                            ng-change="selectedNumber()"
+                                            ng-model="selectedCallRoute.route"
+                                            options="selectData"
+                                            show-attr="viewText"
+                                            keep-attr='keepAttr'
+                                            image-attr='flagImages'
+                                            image-url="/assets/callburn/images/flags/{{getDefaultSelected(CurrentLanguageIndex).image}}.svg"
+                                            select-text="{{ getDefaultSelected(CurrentLanguageIndex).text }}">
+                                        >
+                                    </callburn-select>
+                                </div>
+                            </div>
+                            <div class="form-group custom-group account-settings-modal-phonenumber" >
+                                <input type="text" name="phonenumber" placeholder="{{trans('modals_addressbook_modal_add_modal_phonenumber')}}" required
+                                       ng-model="addContactData.phone_number" class="add_group_modal_input form-control" style="width: 100%;">
+                            </div>
+                        </div>
+                            <div class="form-group custom-group">
+                                <input type="text" placeholder="{{trans('modals_addressbook_modal_add_modal_give_it_a_name')}}" name="contactname" required
+                                       ng-model="addContactData.name" class="add_group_modal_input form-control">
+                            </div>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary full-width" ng-disabled="!addContacts.phonenumber.$valid" ng-click="addContact()">{{trans('modals_addressbook_modal_add_modal_add_contact')}}</button>
+    </div>
+</div>
+
+<!-- END ADD TO GROUP MODAL -->

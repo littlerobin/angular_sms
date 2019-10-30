@@ -1,0 +1,117 @@
+<h3>
+	{{trans('addressbook_export_text')}}
+</h3>
+<div class="phonenumbers_source_export_container">
+	<span class="sp1">{{trans('addressbook_export_choose_source')}}</span>
+	<div class="phonenumbers_source_export_content_container">
+		<div class="compose_step2_contacts_groups_container">
+			<span class="sp2">{{trans('compose_step_2_source_phonebook')}}</span>
+			<div class="compose_step2_contacts_groups_content">
+				<div class="source_contents" ng-click="activeTab = 'contact'">
+					<img src="/assets/callburn/images/contacs-icon.png" class="source_icon">
+					{{trans('compose_step_2_source_contacts')}}
+				</div>
+				<div class="source_contents" ng-click="activeTab = 'group'">
+					<img src="/assets/callburn/images/recipient_icon.png" class="source_icon">
+					{{trans('compose_step_2_source_groups')}}
+				</div>
+			</div>	
+		</div>	
+	</div>
+</div>
+<div class="second_menu_container">
+	<div class="second_menu_content3">
+		<img src="/assets/callburn/images/searchicon.png" class="icon1" ng-click="filterData()" />
+		<input type="text" placeholder="{{trans('addressbook_export_input_placeholder')}}" ng-model="searchData.keyword" />
+	</div>
+	<div class="second_menu_content" id="second_content">
+		<a class="second_menu_content_center" ng-href="/address-book/export-contacts/{{getExportUrl()}}">
+			<img src="/assets/callburn/images/export.png" class="second_menu_icons second_menu_icons2" />
+			<span class="second_menu_span">{{trans('second_menu_export_selected')}}</span>
+		</a>
+	</div>
+</div>
+<div class="phonenumbers_container" ng-show="activeTab == 'group'">
+	<div class="table-responsive">
+		<table class="table">
+			<tr class="table_first_tr" ng-click="checkUncheckAllGroups()">
+				<td class="table_select_all">
+					<span class="check_span">
+						<img ng-show="isAllGroupsChecked" src="/assets/callburn/images/check-icon.png" class="check_icon2">
+					</span>
+				</td>
+				<td>{{trans('addressbook_table_group')}}</td>
+				<td>{{trans('addressbook_table_no_of_contacts')}}</td>
+				<td>{{trans('addressbook_table_last_update')}}</td>
+				</td>
+			</tr>
+			<tr  ng-click="checkedUncheckGroup(group._id)" ng-class="{selected_row: checkedGroups[group._id] }" ng-repeat="group in groups" 
+			ng-if="groups.length > 0">
+				<td class="phonenumbers_content table_select_all">
+				</td>
+				<td class="phonenumbers_content">{{group.name}}</td>
+				<td class="phonenumbers_content">{{group.contact_count[0].count}}</td>
+				<td class="phonenumbers_content">{{group.updated_at}}</td>
+			</tr>
+		</table>
+		<div class="empty_table" ng-if="groups.length == 0">{{trans('empty_table_text')}}</div>
+	</div>
+	<div class="pagination_container" ng-if="groups.length > 0">
+		<div class="pagination_right_arrow_container">
+			<img src="/assets/callburn/images/pagination_arrow_right.png" id="arrow_right" class="pagination_arrows" ng-click="changeGroupsPage(groupsPage)"/>
+			<img src="/assets/callburn/images/pagination_arrow_right1.png" class="pagination_arrows1" ng-click="changeGroupsPage(groupsPagesCount - 1)"/>
+		</div>
+		<div class="pagination_left_arrow_container">
+			<img src="/assets/callburn/images/pagination_arrow_left1.png" class="pagination_arrows1" ng-click="changeGroupsPage(groupsPage - 1)"/>
+			<img src="/assets/callburn/images/pagination_arrow_left.png" id="arrow_left" class="pagination_arrows" ng-click="changeGroupsPage(0)" />
+		</div>
+		<div class="pagination_content">{{trans('pagination_page')}} {{groupsPage}} {{trans('pagination_of')}} {{groupsPagesCount}}</div>
+	</div>
+</div>
+
+<div class="phonenumbers_container" ng-show="activeTab == 'contact'">
+	<div class="table-responsive">
+		<table class="table">
+			<tr class="table_first_tr" ng-click="checkUncheckAllContacts()">
+				<td class="table_select_all">
+					<span class="check_span">
+						<img ng-show="isAllContactsChecked" src="/assets/callburn/images/check-icon.png" class="check_icon2">
+					</span>
+				</td>
+				<td>{{trans('addressbook_table_phonenumbers')}}</td>
+				<td>{{trans('addressbook_table_group')}}</td>
+				<td>{{trans('addressbook_table_name')}}</td>
+			</tr>
+			<tr ng-repeat="contact in contacts" ng-if="contacts.length > 0" ng-click="checkedUncheckContact(contact._id, $event)" ng-class="{selected_row: checkedContacts[contact._id] }">
+				<td class="table_select_all">
+				</td>
+				<td class="phonenumbers_content">
+				<p class="table_p" ng-show="contact.tariff">
+						<img ng-src="/assets/callburn/images/flags/{{contact.tariff.country.code}}.svg" class="table_icons1">
+						{{ '+' + contact.phone_number }}
+					</p>
+					<p class="table_p" ng-show="!contact.tariff">
+						<font color="#2aaee6" size="5px">?</font>
+						{{ contact.phone_number }}
+					</p>
+				</td>
+				<td class="phonenumbers_content"><span ng-repeat="group in contact.groups">{{ group.name }}</span></td>
+				<td class="phonenumbers_content">
+					{{contact.name}}
+				</td>
+			</tr>
+		</table>
+		<div class="empty_table" ng-if="contacts.length == 0">{{trans('empty_table_text')}}</div>
+	</div>
+	<div class="pagination_container" ng-if="contacts.length > 0">
+		<div class="pagination_right_arrow_container">
+			<img src="/assets/callburn/images/pagination_arrow_right.png" id="arrow_right" class="pagination_arrows" ng-click="changeContactsPage(contactsPage)"/>
+			<img src="/assets/callburn/images/pagination_arrow_right1.png" class="pagination_arrows1" ng-click="changeContactsPage(contactsPagesCount - 1)"/>
+		</div>
+		<div class="pagination_left_arrow_container">
+			<img src="/assets/callburn/images/pagination_arrow_left1.png" class="pagination_arrows1" ng-click="changeContactsPage(contactsPage - 1)"/>
+			<img src="/assets/callburn/images/pagination_arrow_left.png" id="arrow_left" class="pagination_arrows" ng-click="changeContactsPage(0)" />
+		</div>
+		<div class="pagination_content">{{trans('pagination_page')}} {{contactsPage}} {{trans('pagination_of')}} {{contactsPagesCount}}</div>
+	</div>
+</div>

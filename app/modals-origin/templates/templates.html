@@ -1,0 +1,487 @@
+<!-- ADD TO GROUP MODAL -->
+<div class="customize-modal templates-add-modal new_modal_style">
+  <div class="modal-header">
+    <h4 class="modal-title" id="myModalLabel">
+      {{ trans("modals_templates_templates_create_new_template") }}
+    </h4>
+    <i data-ng-click="hideOverlay()" class="fa fa-times"></i>
+  </div>
+  <div class="modal-body campaign_compose_compose_step_1-tab">
+    <div class="message_type">
+      <div
+        class="box"
+        ng-class="{active: selectedTemplateType === 'vm'}"
+        ng-click="selectTemplateType('vm')"
+      >
+        <div class="main">
+          <div class="img_holder vm_type">
+            <h1>{{ trans("incoming_call") }}</h1>
+            <h2>
+              {{
+                CampaignComposeService.campaignData.caller_id
+                  ? "+" + CampaignComposeService.campaignData.caller_id
+                  : trans("from_your_number")
+              }}
+            </h2>
+            <img src="/assets/images/compose/vm.svg" alt="vm" />
+          </div>
+          <div class="contents">
+            <h1>{{ trans("dashboard_welcome_voice_messages") }}</h1>
+          </div>
+        </div>
+      </div>
+      <div
+        class="box"
+        ng-class="{active: selectedTemplateType === 'sms'}"
+        ng-click="selectTemplateType('sms')"
+      >
+        <div class="main">
+          <div class="img_holder sms_type">
+            <h1>1 {{ trans("new_sms") }}</h1>
+            <img src="/assets/images/compose/sms.svg" alt="sms" />
+          </div>
+          <div class="contents">
+            <h1>{{ trans("only_sms_title") }}</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="saved_from">
+      <callburn-select
+        ng-model="ttsData.saved_from"
+        ng-change="change(null, 'dateFilter')"
+        options="saveTypes"
+        show-attr="text"
+        keep-attr="value"
+        select-text="{{ trans('select') }}"
+      ></callburn-select>
+    </div>
+    <div
+      ng-disabled="selectedType === 'sms'"
+      class="inters_holder templates_interactions"
+    >
+      <h1 class="small_title">
+        {{ trans("campaign_compose_compose_step_3_functionalities") }}
+      </h1>
+      <div class="box_holder">
+        <div class="box" ng-class="{active: ttsData.replayDigit.onOff }">
+          <div class="callburn-checkbox-white">
+            <input
+              type="checkbox"
+              id="test4"
+              data-ng-model="ttsData.replayDigit.onOff"
+              data-ng-click="showInteractionModal(ttsData.replayDigit.onOff)"
+            />
+            <label for="test4"> </label>
+          </div>
+          <div class="temp_content">
+            <div class="left">
+              <div class="top">
+                <img
+                  ng-show="!ttsData.replayDigit.onOff"
+                  src="/assets/images/compose/replay.svg"
+                />
+                <img
+                  ng-show="ttsData.replayDigit.onOff "
+                  src="/assets/images/compose/replay-white.svg"
+                />
+                <h1>
+                  {{
+                    trans(
+                      "campaign_compose_compose_step_3_replay_voice_message"
+                    )
+                  }}
+                </h1>
+              </div>
+              <h2>{{ trans("replay_text") }}</h2>
+            </div>
+            <div class="right">
+              <sel-dig
+                ng-if="ttsData.replayDigit.onOff"
+                class="callburn_blue choosen_digit_status"
+              >
+                <h1>{{ trans("key") }}</h1>
+                <h1>
+                  {{ replayDigit.digit }}
+                </h1>
+              </sel-dig>
+            </div>
+          </div>
+        </div>
+        <div class="box" ng-class="{active: ttsData.transferDigit.onOff }">
+          <div class="callburn-checkbox-white">
+            <input
+              type="checkbox"
+              id="test5"
+              data-ng-model="ttsData.transferDigit.onOff"
+              ng-checked="ttsData.transferDigit.onOff"
+              data-ng-click="showTransferModal(ttsData.transferDigit.onOff)"
+            />
+            <label for="test5"></label>
+          </div>
+          <div class="temp_content">
+            <div class="left">
+              <div class="top">
+                <img
+                  ng-show="!ttsData.transferDigit.onOff"
+                  src="/assets/images/compose/transfer.svg"
+                />
+                <img
+                  ng-show="ttsData.transferDigit.onOff "
+                  src="/assets/images/compose/transfer-white.svg"
+                />
+                <h1>
+                  {{ trans("campaign_compose_compose_step_3_call_live") }}
+                </h1>
+              </div>
+              <h2>{{ trans("transfer_text") }}</h2>
+            </div>
+            <div class="right">
+              <sel-dig
+                ng-if="ttsData.transferDigit.onOff"
+                class="callburn_blue choosen_digit_status"
+              >
+                <h1>{{ trans("key") }}</h1>
+                <h1>
+                  {{ transferDigit.digit }}
+                </h1>
+              </sel-dig>
+            </div>
+          </div>
+        </div>
+        <div class="box" ng-class="{active: ttsData.callbackDigit.onOff }">
+          <div class="callburn-checkbox-white">
+            <input
+              type="checkbox"
+              id="test6"
+              data-ng-model="ttsData.callbackDigit.onOff"
+              ng-chcked="ttsData.callbackDigit.onOff"
+              data-ng-click="showCallbackModal(ttsData.callbackDigit.onOff)"
+            />
+            <label for="test6"></label>
+          </div>
+          <div class="temp_content">
+            <div class="left">
+              <div class="top">
+                <img
+                  ng-show="!ttsData.callbackDigit.onOff"
+                  src="/assets/images/compose/callback.svg"
+                />
+                <img
+                  ng-show="ttsData.callbackDigit.onOff "
+                  src="/assets/images/compose/callback-white.svg"
+                />
+                <h1>
+                  {{ trans("campaign_compose_compose_step_3_call_me_back") }}
+                </h1>
+              </div>
+              <h2>{{ trans("callback_text") }}</h2>
+            </div>
+            <div class="right">
+              <sel-dig
+                ng-if="ttsData.callbackDigit.onOff"
+                class="callburn_blue choosen_digit_status"
+              >
+                <h1>{{ trans("key") }}</h1>
+                <h1>
+                  {{ callbackDigit.digit }}
+                </h1>
+              </sel-dig>
+            </div>
+          </div>
+        </div>
+        <div class="box" ng-class="{active: ttsData.blacklistDigit.onOff }">
+          <div class="callburn-checkbox-white">
+            <input
+              type="checkbox"
+              id="test7"
+              data-ng-model="ttsData.blacklistDigit.onOff"
+              ng-chcked="ttsData.blacklistDigit.onOff"
+              data-ng-click="showDoNotCallModal(ttsData.blacklistDigit.onOff)"
+            />
+            <label for="test7"></label>
+          </div>
+          <div class="temp_content">
+            <div class="left">
+              <div class="top">
+                <img
+                  ng-show="!ttsData.blacklistDigit.onOff"
+                  src="/assets/images/compose/blacklist.svg"
+                />
+                <img
+                  ng-show="ttsData.blacklistDigit.onOff"
+                  src="/assets/images/compose/blacklist-white.svg"
+                />
+                <h1>
+                  {{ trans("campaign_compose_compose_step_3_blacklist_me") }}
+                </h1>
+              </div>
+              <h2>{{ trans("blacklist_text") }}</h2>
+            </div>
+            <div class="right">
+              <sel-dig
+                ng-if="ttsData.blacklistDigit.onOff"
+                class="callburn_blue choosen_digit_status"
+              >
+                <h1>{{ trans("key") }}</h1>
+                <h1>
+                  {{ blacklistDigit.digit }}
+                </h1>
+              </sel-dig>
+            </div>
+          </div>
+        </div>
+        <div class="box playback">
+          <div class="left">
+            <h1 class="">{{ trans("playback_count") }}</h1>
+            <h2>{{ trans("playback_text") }}</h2>
+          </div>
+          <div class="item_holder">
+            <div
+              class="call_item"
+              data-ng-class="{'active':getPlaybackCount(1)}"
+              ng-click="changePlaybackCount(1)"
+            >
+              1x
+            </div>
+            <div
+              class="call_item"
+              data-ng-class="{'active':getPlaybackCount(2)}"
+              ng-click="changePlaybackCount(2)"
+            >
+              2x
+            </div>
+            <div
+              class="call_item"
+              data-ng-class="{'active':getPlaybackCount(3)}"
+              ng-click="changePlaybackCount(3)"
+            >
+              3x
+            </div>
+            <div
+              class="call_item"
+              data-ng-class="{'active':getPlaybackCount(4)}"
+              ng-click="changePlaybackCount(4)"
+            >
+              4x
+            </div>
+            <div
+              class="call_item"
+              data-ng-class="{'active':getPlaybackCount(5)}"
+              ng-click="changePlaybackCount(5)"
+            >
+              5x
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="template_pills" ng-show="selectedTemplateType === 'vm'">
+      <uib-tabset type="pills" active="active" class="pills">
+        <uib-tab
+          index="0"
+          heading="{{ trans('modals_templates_templates_tts_technology') }}"
+        >
+          <div class="template-compose">
+            <div class="compose_method_container">
+              <div class="compose_method" ng-class="{error_border: textErr}">
+                <p class="compose_sp block-compose">
+                  {{ trans("compose_step_1_method_1_text") }}
+                </p>
+                <div class="choose_lang_and_voice_container select-second-type">
+                  <ui-select
+                    ng-model="ttsData.language"
+                    theme="bootstrap"
+                    id="_id"
+                    title="Choose an address"
+                  >
+                    <ui-select-match
+                      placeholder="{{
+                        trans('compose_step_1_method_1_select_default')
+                      }}"
+                    >
+                      {{ $select.selected.selectView }}
+                    </ui-select-match>
+                    <ui-select-choices
+                      repeat="language.ttsEngine as language in ttsLanguagesItems | filter: $select.search track by $index"
+                      ng-click="keepObject ? valueSelected(option,option,$index) : valueSelected(option[showAttr],option[keepAttr],$index)"
+                    >
+                      <div
+                        ng-bind-html="language.selectView | highlight: $select.search"
+                      ></div>
+                      <div
+                        class="ng-hide"
+                        ng-bind-html="language.ttsEngine | highlight: $select.search"
+                      ></div>
+                      <div
+                        class="ng-hide"
+                        ng-bind-html="language.languageName | highlight: $select.search"
+                      ></div>
+                    </ui-select-choices>
+                  </ui-select>
+                  <div
+                    class="listen_voice_container"
+                    ng-show="availableTts[ttsData.language]"
+                  >
+                    <audio
+                      id="ttsDemoAudio"
+                      ng-show="false"
+                      ng-src="{{ getTTSUrl() }}"
+                    ></audio>
+                    <span>{{
+                      trans("modals_templates_templates_listen_to_the_demo")
+                    }}</span>
+                    <span
+                      tooltip-placement="top"
+                      uib-tooltip="{{
+                        trans('engaines_campaign_tamplate_play')
+                      }}"
+                      tooltip-trigger="mouseenter"
+                      id="audioFilePlay"
+                      class="fa fa-play-circle"
+                      data-ng-click="playTTSDemo()"
+                    ></span>
+                  </div>
+                </div>
+                <textarea
+                  ng-model="ttsData.text"
+                  class="compose_method1_textarea"
+                  placeholder="{{
+                    trans('compose_step_1_method_1_placeholder')
+                  }}"
+                ></textarea>
+                <!-- <button
+                  class="btn btn-success"
+                  ng-disabled="!ttsData.language || !ttsData.text"
+                  data-ng-click="createAudioFromTextForVoice()"
+                >
+                  <img
+                    src="/assets/callburn/images/images/send-a-new-message-icon@3x.svg"
+                    class="button_icon"
+                  />
+                  {{ trans("compose_step_1_method_1_compose") }}
+                </button> -->
+                <span class="characters_count"
+                  >{{ trans("compose_step_1_method_1_characters_count") }}:
+                  {{ ttsData.text.length ? ttsData.text.length : 0 }}</span
+                >
+              </div>
+            </div>
+          </div>
+        </uib-tab>
+        <uib-tab
+          index="1"
+          heading="{{ trans('modals_templates_templates_upload_file') }}"
+        >
+          <span class="compose_sp">{{
+            trans("modals_templates_templates_upload_an_audio")
+          }}</span>
+          <div class="col-xs-12 file_uploader_container">
+            <div
+              nv-file-drop
+              uploader="callbackDigitFileUpload"
+              class="drag_drop col-sm-10 col-sm-offset-1 col-xs-12"
+            >
+              <div class="col-xs-12 centerd">
+                <div class="row">
+                  <p ng-show="!uploadingAudioName" class="text-center">
+                    {{ trans("modals_templates_templates_move_your") }}
+                  </p>
+                  <button
+                    class="btn btn-primary"
+                    ng-click="openTemplateAudioSelect()"
+                  >
+                    {{ trans("modals_templates_templates_choose_file") }}
+                  </button>
+                </div>
+              </div>
+            </div>
+            <p ng-show="uploadingAudioName">{{ uploadingAudioName }}</p>
+            <div class="compose_drag_drop_input">
+              <input
+                ng-show="false"
+                readonly="true"
+                type="text"
+                class="compose_method2_input"
+                placeholder="{{
+                  trans('compose_step_1_method_2_input_placeholder')
+                }}"
+              />
+              <input
+                ng-show="false"
+                id="campaignBatchFileInput"
+                type="file"
+                nv-file-select
+                uploader="callbackDigitFileUpload"
+              />
+            </div>
+          </div>
+        </uib-tab>
+      </uib-tabset>
+    </div>
+    <div class="sms_section" ng-show="selectedTemplateType === 'sms'">
+      <div class="same_as_holder">
+        <div class="sms_text click_item" ng-class="{error_border: smsError}">
+          <textarea
+            maxlength="960"
+            name="sms"
+            id="sms"
+            class="compose_method1_textarea"
+            ng-model="templateData.sms_text"
+            placeholder="{{ trans('compose_step_1_method_1_placeholder') }}"
+            ng-change="calcSmsText()"
+            ng-blur="goToStep3()"
+          ></textarea>
+          <button class="btn btn-success" ng-click="createSmsTemplate()">
+            <img
+              src="/assets/callburn/images/images/send-a-new-message-icon@3x.svg"
+              class="button_icon"
+            />
+            {{ trans("compose_step_1_method_1_compose") }}
+          </button>
+        </div>
+        <span class="characters_count">
+          {{ trans("compose_step_1_method_1_characters_count") }} :
+          {{
+            templateData.sms_text.length
+              ? templateData.sms_text.length + calcSmsText()
+              : 0
+          }}
+        </span>
+      </div>
+      <div class="sms_phone">
+        <div class="phone">
+          <div class="contento">
+            <div class="top">
+              <h1>
+                {{
+                  CampaignComposeService.campaignData.caller_id
+                    ? "+" + CampaignComposeService.campaignData.caller_id
+                    : trans("from_your_number")
+                }}
+              </h1>
+            </div>
+            <div class="main_content">
+              <h2 id="smsData">
+                {{ templateData.sms_text || trans("textarea_text_in_phone") }}
+              </h2>
+            </div>
+            <img src="/assets/images/compose/sms_phone.png" alt="" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer" ng-show="selectedTemplateType">
+    <button
+      class="btn btn-success"
+      ng-click="selectedTemplateType == 'vm' ? createAudioFromTextForVoice() : selectedTemplateType == 'sms' ? createSmsTemplate() : ''"
+      ng-disabled="!ttsData.language || !ttsData.text"
+    >
+      {{ trans("template_add_new") }}
+    </button>
+    <button class="btn btn-danger" ng-click="cancelModal()">
+      {{ trans("addressbook_import_contact_cancel") }}
+    </button>
+  </div>
+</div>

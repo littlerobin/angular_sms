@@ -1,0 +1,8 @@
+<div id="selectBoxMain" ng-click="showSelect = !showSelect;" class="select">
+	{{selectedValue? selectedValue : 'Select'}}
+</div>
+<ul ng-show="showSelect" class="select-open">
+	<li ng-repeat="opt in options track by $index" ng-click="valueSelected(opt[keepAttr])">
+		{{opt[showAttr]}}
+	</li>
+</ul>

@@ -1,0 +1,51 @@
+<div class="col-xs-12 nav-aside new_default_menu addresbook_menu">
+  <div class="row">
+    <ul
+      class="list-unstyled"
+      ng-init="currentActiveUrl == 'addressbook.blacklist' ? hovered = true : hovered = false"
+    >
+      <li
+        ng-class="{active: currentActiveUrl == 'addressbook.groups' || currentActiveRoute == 'groups'}"
+      >
+        <a href="#" ui-sref="addressbook.groups">
+          <i class="fa fa-users" aria-hidden="true"></i>
+          <p>{{ trans("addressbook_menu_groups") }}</p>
+        </a>
+      </li>
+
+      <!-- <li ng-class="{active: currentActiveRoute == 'contacts'}">
+				<a href="#" ui-sref-opts="{reload: true}" ui-sref="addressbook.contacts({group_id: null})">
+					<i class="fa fa-user" aria-hidden="true"></i>
+					<p>
+						{{trans('addressbook_menu_contacts')}}
+					</p>
+				</a>
+			</li> -->
+
+      <li ng-class="{active: currentActiveUrl == 'addressbook.import'}">
+        <a href="#" ui-sref="addressbook.import">
+          <i class="fa fa-download" aria-hidden="true"></i>
+          <p>{{ trans("addressbook_menu_import") }}</p>
+        </a>
+      </li>
+
+      <li
+        class="blacklist"
+        ng-class="{active: currentActiveUrl == 'addressbook.blacklist'}"
+        ng-mouseenter="currentActiveUrl != 'addressbook.blacklist' ? hovered = true : ''"
+        ng-mouseleave="currentActiveUrl != 'addressbook.blacklist' ? hovered = false : ''"
+      >
+        <a href="#" ui-sref="addressbook.blacklist">
+          <img
+            ng-class="{hovered: !hovered}"
+            src="/assets/images/compose/blacklist{{
+              !hovered ? '-white' : ''
+            }}.svg"
+            alt=""
+          />
+          <p>{{ trans("campaign_statistics_blacklist") }}</p>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>

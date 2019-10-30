@@ -1,0 +1,19 @@
+{
+  "name": "node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.14.0",
+    "fs": "0.0.2",
+    "node-static": "^0.7.7",
+    "recursive-readdir": "^2.0.0",
+    "searching": "^1.0.4"
+  }
+}

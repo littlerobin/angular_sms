@@ -1,0 +1,24 @@
+<div style="" id="selectBoxMain" ng-click="showSelect = !showSelect" class="select global_class">
+    <img data-ng-show="imageUrl" ng-src="{{imageUrl}}" class="select-first-img" id="data-show-right"
+    title="{{selectedValue? selectedValue :selectText ? selectText : 'Select'}}">
+    <span id="data-show-right1" class="span-callb" style="">{{selectedValue ? selectedValue : selectText ? selectText : 'Select'}}</span>
+    <span class="caret"></span>
+</div>
+<div class="arrow_box_select" ng-show="showSelect"></div>
+<div ng-show="showSelect">
+    <div ng-show="showAutocomplete" class="callburn-select callburn-select-autocomplete">
+        <input  type="text" class="form-control" ng-model="filtering.showAttr"><!--id="callburn-autocomplete"-->
+    </div>
+</div>
+<ul ng-show="showSelect" class="select-open ">
+
+    <!--| orderBy:selectedValue-->
+    <li class="li-hovered" ng-repeat="option in options | toArray | filter:filtering.showAttr track by $index" ng-class="languageSelected[$index]" ng-click="keepObject ? valueSelected(option,option,option,$index) : valueSelected(option[showAttr],option[keepAttr],option[optionImage],$index ,selectText)">
+        <input type="checkbox" ng-if="makeMultiselect" ng-click="keepObject?choice($event,options) : choice($event,option[keepAttr])">
+        <img data-ng-show="imageAttr" ng-src="{{option[optionImage]?option[optionImage] : imageAttr[$index]}}">
+        <span>
+            {{option[showAttr]}}
+        </span>
+    </li>
+</ul>
+

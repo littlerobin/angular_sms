@@ -1,0 +1,29 @@
+<div class="flex-calendar">
+    <div class="month">
+        <div class="arrow {{arrowPrevClass}}" ng-click="prevMonth()"></div>
+        <div class="label">{{ selectedMonth | translate }} {{selectedYear}}</div>
+        <div class="arrow {{arrowNextClass}}" ng-click="nextMonth()"></div>
+    </div>
+    <div class="week">
+        <div class="day" ng-repeat="day in weekDays(options.dayNamesLength) track by $index">{{ day }}</div>
+    </div>
+
+    <div class="days" ng-repeat="week in weeks">
+        <div class="day"
+             ng-repeat="(parentDay,day) in week track by $index"
+             ng-class="[getDayClass(day), {selected: DataCallburnSelected(day), event: day.event[0], disabled: day.disabled, out: !day}]"
+             ng-click="onClick(day, $index, $event)">
+            <!--<div class="number">{{day.day}}</div>-->
+            <div class="number " data-ng-class="{'many-colors': hasManyColor(day,'many-colors')=='many-colors','blue':hasManyColor(day,'blue')=='blue',red:hasManyColor(day,'red')=='red','piruze':hasManyColor(day,'piruze')=='piruze','yellow':hasManyColor(day,'yellow')=='yellow'}">
+                <div class="color-picker">
+                    <div class="col-lg-2 {{color.color}}" data-ng-repeat="color in options.shcedulationData.colors" data-ng-click="addRemoveQueue(day,color.color)"><i class="glyphicon glyphicon-ok" data-ng-show="addRemoveCheck(week[parentDay], color.color)"></i></div>
+                </div>
+                <span data-ng-class="{selected: DataCallburnSelected(day),'current-day':currentDay(day)}">{{day.day}}</span>
+                <div class=" mini-div blue" data-ng-class="{visible : getManyColor(day,'blue')=='blue'}"></div>
+                <div class="mini-div red" data-ng-class="{visible : getManyColor(day,'red')=='red'}"></div>
+                <div class=" mini-div yellow" data-ng-class="{visible : getManyColor(day,'yellow')=='yellow'}"></div>
+                <div class=" mini-div piruze" data-ng-class="{visible : getManyColor(day,'piruze')=='piruze'}"></div>
+            </div>
+        </div>
+    </div>
+</div>

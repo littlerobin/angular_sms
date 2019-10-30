@@ -1,0 +1,22 @@
+<div class="customize-modal new_modal_style red">
+    <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">{{trans('confirm_action')}}</h4>
+        <i data-ng-click="hideOverlay()" class="fa fa-times"></i>
+    </div>
+    <div class="modal-body">
+        <div class="modal_window">
+            <div class="modal_container">
+                <div class="modal_select_container text-center">
+                    <p>
+                        {{trans('delete_account_text_1')}}
+                    </p>
+                    <p>
+                        {{trans('delete_account_text_2')}}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-danger full-width" ng-click="deleteCard(id)">{{trans('confirm_irreversible_action')}}</button>
+    </div>

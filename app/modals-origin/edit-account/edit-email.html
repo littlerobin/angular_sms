@@ -1,0 +1,22 @@
+<div class="window" id='myModal_email_content' ng-show="showEditEmailModal">
+    <div class="pop_up" id='myModal_email' >
+        <div class="pop_up_center">
+            <a href="#"><img src="/assets/callburn/images/000.png" class="exit exit_email"></a>
+            <div class="pop_up_text">
+                <h1>{{trans('title_edit_email')}}</h1>
+                <span class="pop_up2_span">{{trans('text_edit_email')}}</span>
+            </div>
+            <div class="account_popup">
+                <input type="text" id="email" class="account_popup_content" placeholder="{{trans('solder_edit_email')}}" ng-model="updateEmailData.email" /> 
+                <input type="text" id="emailConfirmation" class="account_popup_content" placeholder="{{trans('solder_email_confirmation')}}" ng-model="updateEmailData.email_confirmation" /> 
+                <input type="hidden" id="password" class="account_popup_content" placeholder="{{trans('solder_password')}}" ng-model="updateEmailData.password" /> 
+            </div>
+            <button type="submit"  class="account_popup_btns">
+                <img src="/assets/callburn/images/refresh.png">
+                <span class="account_btns_title exit_email">
+                    {{trans('save_password')}}
+                </span>
+            </button>
+        </div>
+    </div>
+</div>

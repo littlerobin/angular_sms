@@ -1,0 +1,38 @@
+<div id="footer">
+	<div class="logo_container">
+		<a ui-sref="dashboard">
+			<img src="/assets/callburn/images/logo1.png" class="logo" />
+		</a>
+		<div class="footer_select" ng-click="showHideLanguageBar()">
+			<img src="/assets/callburn/images/dropdown_arrow.png" class="dropdown_arrow">
+			<callburn-select
+					ng-model="items"
+					options="CampaignComposeService.ttsLanguages"
+					show-attr="languageName"
+					keep-attr='languageId'
+					image-attr="flags"
+					image-url="/assets/callburn/images/Attachment.png"
+					select-text="Here set text" ng-change="changeLanguage('en')">
+			</callburn-select>
+		</div>
+	</div>
+	<div id="footer_menu">
+		<ul id="footer_menu_content">
+			<li>
+				<a href="#">{{trans('funciona')}}</a>
+			</li>
+			<li>
+				<a href="">{{trans('faq')}}</a>
+			</li>
+			<li>
+				<a href="">{{trans('politica')}}</a>
+			</li>
+			<li>
+				<a href="">{{trans('how_is_works')}}</a>
+			</li>
+			<li>
+				<a href="">{{trans('contacto')}}</a>
+			</li>
+		</ul>
+	</div>
+</div>

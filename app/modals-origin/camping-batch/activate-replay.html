@@ -1,0 +1,128 @@
+<div class="new_modal_style activate_replay_modal">
+  <div class="modal-header">
+    <h4 class="modal-title" id="myModalLabel">
+      {{ trans("button_activate_replay_voice_message") }}
+    </h4>
+    <i data-ng-click="cancelModal()" class="fa fa-times"></i>
+  </div>
+  <div class="modal-body">
+    <div class="interact">
+      <div class="left_text">
+        <img src="/assets/images/compose/replay.svg" />
+        <h1>
+          {{ trans("campaign_compose_compose_step_3_replay_voice_message") }}
+        </h1>
+      </div>
+      <div class="right_text">{{ trans("replay_text") }}</div>
+    </div>
+    <div class="content">
+      <div class="left_side">
+        <p class="title">
+          {{ trans("modals_camping_batch_activate_not_call_how_it_works") }}
+        </p>
+        <p>{{ trans("replay_interaction_modal_text_for_example") }}</p>
+      </div>
+      <div class="right_side interaction">
+        <p class="title" ng-class="{'error snippet_blinking': digitError}">
+          {{ trans("modals_camping_batch_dijit_choosen_select_a_digit") }}
+        </p>
+        <div class="integer-container">
+          <div
+            class="col-xs-4 integer"
+            data-ng-class="{'active':hasInArray(chosedInteractions,1,0),'inactive': CampaignComposeService.campaignData.transfer_digit == 1 || CampaignComposeService.campaignData.callback_digit == 1 || CampaignComposeService.campaignData.do_not_call_digit == 1}"
+            data-ng-click="!isInactive(1,0) ? selectInteraction(1):''"
+          >
+            <span>1</span>
+          </div>
+          <div
+            class="col-xs-4 integer"
+            data-ng-class="{'active':hasInArray(chosedInteractions,2,0),'inactive': CampaignComposeService.campaignData.transfer_digit == 2 || CampaignComposeService.campaignData.callback_digit == 2 || CampaignComposeService.campaignData.do_not_call_digit == 2}"
+            data-ng-click="!isInactive(2,0) ? selectInteraction(2):''"
+          >
+            <span>2</span>
+          </div>
+          <div
+            class="col-xs-4 integer"
+            data-ng-class="{'active':hasInArray(chosedInteractions,3,0),'inactive': CampaignComposeService.campaignData.transfer_digit == 3 || CampaignComposeService.campaignData.callback_digit == 3 || CampaignComposeService.campaignData.do_not_call_digit == 3}"
+            data-ng-click="!isInactive(3,0) ? selectInteraction(3):''"
+          >
+            <span>3</span>
+          </div>
+          <div
+            class="col-xs-4 integer"
+            data-ng-class="{'active':hasInArray(chosedInteractions,4,0),'inactive': CampaignComposeService.campaignData.transfer_digit == 4 || CampaignComposeService.campaignData.callback_digit == 4 || CampaignComposeService.campaignData.do_not_call_digit == 4}"
+            data-ng-click="!isInactive(4,0) ? selectInteraction(4):''"
+          >
+            <span>4</span>
+          </div>
+          <div
+            class="col-xs-4 integer"
+            data-ng-class="{'active':hasInArray(chosedInteractions,5,0),'inactive': CampaignComposeService.campaignData.transfer_digit == 5 || CampaignComposeService.campaignData.callback_digit == 5 || CampaignComposeService.campaignData.do_not_call_digit == 5}"
+            data-ng-click="!isInactive(5,0) ? selectInteraction(5):''"
+          >
+            <span>5</span>
+          </div>
+          <div
+            class="col-xs-4 integer"
+            data-ng-class="{'active':hasInArray(chosedInteractions,6,0),'inactive': CampaignComposeService.campaignData.transfer_digit == 6 || CampaignComposeService.campaignData.callback_digit == 6 || CampaignComposeService.campaignData.do_not_call_digit == 6}"
+            data-ng-click="!isInactive(6,0) ? selectInteraction(6):''"
+          >
+            <span>6</span>
+          </div>
+          <div
+            class="col-xs-4 integer"
+            data-ng-class="{'active':hasInArray(chosedInteractions,7,0),'inactive': CampaignComposeService.campaignData.transfer_digit == 7 || CampaignComposeService.campaignData.callback_digit == 7 || CampaignComposeService.campaignData.do_not_call_digit == 7}"
+            data-ng-click="!isInactive(7,0) ? selectInteraction(7):''"
+          >
+            <span>7</span>
+          </div>
+          <div
+            class="col-xs-4 integer"
+            data-ng-class="{'active':hasInArray(chosedInteractions,8,0),'inactive': CampaignComposeService.campaignData.transfer_digit == 8 || CampaignComposeService.campaignData.callback_digit == 8 || CampaignComposeService.campaignData.do_not_call_digit == 8}"
+            data-ng-click="!isInactive(8,0) ? selectInteraction(8):''"
+          >
+            <span>8</span>
+          </div>
+          <div
+            class="col-xs-4 integer"
+            data-ng-class="{'active':hasInArray(chosedInteractions,9,0),'inactive': CampaignComposeService.campaignData.transfer_digit == 9 || CampaignComposeService.campaignData.callback_digit == 9 || CampaignComposeService.campaignData.do_not_call_digit == 9}"
+            data-ng-click="!isInactive(9,0) ? selectInteraction(9):''"
+          >
+            <span>9</span>
+          </div>
+          <div class="col-xs-4 integer"><span></span></div>
+          <div
+            class="col-xs-4 integer"
+            data-ng-class="{'active':hasInArray(chosedInteractions,0,0),'inactive': CampaignComposeService.campaignData.transfer_digit == 0 || CampaignComposeService.campaignData.callback_digit == 0 || CampaignComposeService.campaignData.do_not_call_digit == 0}"
+            data-ng-click="!isInactive(0,0) ? selectInteraction(0):''"
+          >
+            <span>0</span>
+          </div>
+          <div class="col-xs-4 integer"><span></span></div>
+        </div>
+      </div>
+    </div>
+    <button
+      class="btn btn-check"
+      ng-class="{active: CampaignComposeService.replayDigit.checkboxChecked, 'error snippet_blinking': checkboxError}"
+    >
+      <div class="callburn-checkbox-white">
+        <input
+          type="checkbox"
+          id="activateReplay"
+          ng-checked="CampaignComposeService.replayDigit.checkboxChecked"
+          data-ng-model="CampaignComposeService.replayDigit.checkboxChecked"
+        />
+        <label for="activateReplay">{{ trans("check_container_text1") }}</label>
+      </div>
+    </button>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary btn-cancel" ng-click="cancelModal()">
+      {{ trans("addressbook_import_contact_cancel") }}
+    </button>
+    <button class="btn btn-success full-width" ng-click="finishModal()">
+      {{ trans("button_activate_replay_voice_message") }}
+    </button>
+  </div>
+</div>

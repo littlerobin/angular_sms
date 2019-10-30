@@ -1,0 +1,69 @@
+<div class="nav header-notify">
+
+    <a data-ng-click="showRegistrationModal()"><span> {{trans('include_front_nav_all_white_start_to_use_callburn')}}</span></a>
+</div>
+
+<nav class="navbar white">
+    <div class="container-fluid">
+
+        <div class="col-lg-3">
+            <div class="row">
+                <div class="navbar-header logo">
+                    <button type="button" class="navbar-toggle collapsed pull-right" data-toggle="collapse"
+                            ng-init="navCollapsed = true"
+                            ng-click="navCollapsed = !navCollapsed">
+                        <span class="sr-only">{{trans('include_front_nav_all_white_toggle_navigation')}}</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="#"><img src="/assets/front/images/call-burn-l-o-g-o@3x.svg" class="img-responsive"></a>
+                </div>
+
+            </div>
+        </div>
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="col-lg-9">
+            <div class="row">
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" ng-class="!navCollapsed && 'in'">
+
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <ul class="nav navbar-nav callburn-nav-white navbar-right">
+                                    <li class="dropdown" uib-dropdown keyboard-nav>
+
+                                        <callburn-select ng-model="language"
+                                                         options="languages"
+                                                         show-attr="name"
+                                                         keep-attr='code'
+                                                         image-attr="flags"
+                                                         image-url="/assets/callburn/images/lang-flags/{{currentLanguage}}.svg"
+                                                         select-text="{{currentLanguageName | uppercase}}"
+                                                         ng-change="changeLanguage(language)" class="language_change global_class">
+                                        </callburn-select>
+                                    </li>
+                                    <li><a data-ng-click="showLoginModal()" class="blue">{{trans('include_front_nav_all_white_login')}}</a></li>
+                                    <li><a data-ng-click="showRegistrationModal()" class="blue">{{trans('include_front_nav_all_white_register')}}</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <ul class="nav navbar-nav callburn-nav-white second-nav navbar-right">
+                                    <li><a href="#" ui-sref="features" >{{trans('include_front_nav_all_white_features')}}</a></li>
+                                    <li><a href="#" ui-sref="price">{{trans('include_front_nav_all_white_pricing')}}</a></li>
+                                    <li><a href="#" ui-sref="developers">{{trans('include_front_nav_all_white_developers')}}</a></li>
+                                    <li><a href="#" ui-sref="docs">{{trans('include_front_nav_all_white_docs')}}</a></li>
+                                    <li><a href="#" ui-sref="contact-us">{{trans('include_front_nav_all_white_contact_us')}}</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                </div><!-- /.navbar-collapse -->
+            </div>
+
+        </div>
+
+    </div><!-- /.container-fluid -->
+</nav>

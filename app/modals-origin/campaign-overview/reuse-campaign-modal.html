@@ -1,0 +1,13 @@
+<div class="new_modal_style reuse_modal">
+    <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">{{trans('modal_send_again_heading')}}</h4>
+        <i data-ng-click="hideOverlay()" class="fa fa-times"></i>
+    </div>
+    <div class="modal-body">
+        <p>{{trans('campaign_compose_compose_step_2_now_it_is_time')}}</p>
+    </div>
+    <div class="modal-footer">
+        <button ng-click="withSameRecipients()" class="btn btn-primary">{{ trans('to_same_recipients') }} ({{ campaign.totalRecipientsIfGroups + phonenumbersCount }})</button>
+        <button ng-click="withOutSameRecipients()" class="btn btn-primary">{{ trans('to_different_recipients') }}</button>
+    </div>
+</div>

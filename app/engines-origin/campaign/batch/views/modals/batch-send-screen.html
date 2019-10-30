@@ -1,0 +1,47 @@
+<!-- BATCH send screen -->
+<div class="batch_container" ng-show="batchStep == 1">
+    <div class="batch_send_sp_container">
+        <span class="batch_send_sp1">{{trans('batch_send_text_you_can_send')}} <span class="batch_send_sp2">{{trans('batch_send_text_phonenumber_message')}}</span></span>
+        <span class="batch_send_sp1">{{trans('batch_send_text_phonenumber_should_contain')}} <span class="batch_send_sp2">. , : | tab</span></span>
+        <span class="batch_send_sp1">{{trans('batch_send_text_more_information')}} <span class="batch_send_sp2">{{trans('batch_send_text_document')}}</span></span>
+        <span class="batch_send_sp1">{{trans('batch_send_text_after_file_upload')}}</span>
+    </div>
+    <div class="batch_send_container">
+        <div class="batch_send_select_container">
+            <span class="compose_sp compose_sp1">{{trans('batch_send_left_input_top_text')}}</span>
+            <div class="choose_lang_and_voice_container">
+                <img src="/assets/callburn/images/TTSicon@2x.png" class="select_icon">
+                <select class="choose_lang_and_voice" ng-model="batchTtsData.tts_language">
+                    <option value="">{{trans('compose_step_1_method_1_select_default')}}</option>
+                    <option ng-repeat="ttsLanguage in ttsLanguages" value="{{ttsLanguage.ttsEngine}}">{{ttsLanguage.languageName + '-' + ttsLanguage.ttsEngine}}</option>
+                </select>
+                <img src="assets/callburn/images/Settingicon.png" class="drop_down_arrow">
+                <div class="listen_voice_container" ng-show="batchTtsData.tts_language">
+					<span class="listen_voice_content" ng-click="playTTSDemo()">
+						<img src="/assets/callburn/images/play.png" class="tts_select_play_icon"> {{trans('batch_send_text_listen_voice')}}
+					</span>
+                </div>
+            </div>
+        </div>
+        <div class="batch_send_drag_container">
+            <div class="compose_method_container batch_send_method_container">
+                <span class="compose_sp">{{trans('batch_send_right_input_top_text')}}</span>
+                <div class="compose_method">
+                    <div class="compose_method2_drag_container">
+                        <div class="batch_drag_drop_input">
+                            <img src="assets/callburn/images/Attachment.png" class="compose_method2_input_img">
+                            <input readonly="true" type="text" class="compose_method2_input" placeholder="{{trans('batch_send_input_placeholder')}}" />
+                            <input ng-show="false" id="campaignBatchFileInput"  type="file" nv-file-select uploader="campaignBatchFileUpload" />
+                            <div class="compose_method2_input_btns_container"><button class="compose_method2_input_btns" ng-click='openBatchFileSelect()'>{{trans('button_upload')}}</button></div>
+                        </div>
+                        <div nv-file-drop=""  uploader="campaignBatchFileUpload" class="drag_drop">
+                            <p ng-show="uploadingBatchName">{{uploadingBatchName}}</p>
+                            <p ng-show="!uploadingBatchName">{{trans('batch_send_dropzone')}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END BATCH send screen -->

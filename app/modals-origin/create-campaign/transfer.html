@@ -1,0 +1,36 @@
+<div class="window" id='myModal_call_content' ng-show="showTransferModal">
+	<div class="pop_up" id='myModal_call'>
+		<div class="pop_up_center">
+			<a href="#"><img src="/assets/callburn/images/000.png" class="exit exit_call"></a>
+			<div class="pop_up_text">
+				<h1>{{trans('title_modal_transfer')}}</h1>
+			</div>
+			<div class="icon_div_popup">
+				<div class="icon_and_title">
+					<img src="/assets/callburn/images/24.png" class="popup_icons" />
+					<span>{{trans('transfer')}}</span>
+				</div>
+				<!-- <div class="icon_div_popup_right">
+					<span>{{trans('pulse')}}</span>
+					<select class="popup_select">
+						<option selected>1</option>
+						<option>2</option>
+					</select> -->
+				</div>		
+			</div>
+			<div class="bottom_div">
+
+				<h4 class="popup_h4">{{trans('telephone_list_transfer')}}</h4>
+				<a id='add_input' href='#'>
+					<img src="/assets/callburn/images/iconaddgrey.png" class="exit exit_callback">
+				</a>
+				<div id='input_container'>
+					<input type="text" ng-model="transferOptions[$index]">
+				</div>
+			</div>
+			<div class="accepting_btns">
+				<span id='add_option_val' class="ok exit_call">{{trans('ok')}}</span>
+			</div>
+		</div>
+	</div>
+</div>	

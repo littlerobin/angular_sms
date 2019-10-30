@@ -1,0 +1,68 @@
+<div class="setup_acc_holder" ng-show="currentUser.numbers.length == 0 || !currentUser.timezone">
+	<div class="setup_acc main_box" ng-if="currentUser.numbers.length == 0 && wizardStepCallerId">
+		<div class="heading">{{trans('setup_account')}}</div>
+		<div class="body">
+			<div class="icon">
+				<img src="/assets/callburn/images/callerid_missing_icon.png" alt="callerid missing">
+			</div>
+			<h1>{{trans('callerid_missing_title_1')}}</h1>
+			<h2>{{trans('callerid_missing_title_2')}}</h2>
+			<div class="settings-modal callerid-modal">
+				<form name="newCallerId" class="callerid-form">
+					<div class="modal_container" data-ng-class="defaultClass">
+						<div class="modal_select_container modal_select_container1">
+							<div class="intl_flag_container phone_holder" ng-class="{disabled: showCodeInput || showNameBtn}">
+								<input class="{{isValidNumberClass}} inp-placeholder" id="phone" type="text" placeholder="" ng-model="addContactData.phonenumber"
+								 ng-keyup="validator()" ng-intl-tel-input data-initial-country="{{userCountry}}" ng-keydown="addPrefix()" ng-disabled="showCodeInput || showNameBtn">
+								<button class="btn btn-primary btn_send_code" ng-click="sendVerificationCall()" ng-disabled="validVerificationCallData || showCodeInput || showNameBtn">{{trans('account_settings_add_caller_id')}}
+								</button>
+							</div>
+							<div class="socket_verification">
+								<p ng-show="verification_status">
+									{{trans('verification_call_status')}}:
+									<span class="status" ng-class="{'failed': verification_status == 'FAILED' ,'calling': verification_status == 'CALLING', 'succeed': verification_status == 'SUCCEED' }">
+										{{verification_status == 'CALLING' ? trans('campaign_overview_calling_in_progress') : verification_status == 'FAILED' ? trans('failed')
+										: verification_status == 'SUCCEED' ? trans('succeed') : '' }}
+									</span>
+								</p>
+							</div>
+							<div ng-show="showCodeInput" class="config_acc_verif_code" ng-class="{disabled: showNameBtn}">
+								<!-- data-ng-if="showCallCodeField" -->
+								<input type="text" placeholder="{{trans('verification_code')}}" ng-model="addContactData.voice_code" class="verif_code" ng-disabled="showNameBtn">
+								<a class="send-again {{showTimer ? 'disabled-a' :''}}" ng-show="showCallCodeField" ng-click="showTimer?'':sendVerificationCall()"
+								 ng-disabled="!newCallerId.phonenumber.$valid || showNameBtn">
+									{{trans('account_settings_send_again')}}
+								</a>
+								<span ng-show="showTimer && counter && showCallCodeField">
+									({{counter}})
+								</span>
+							</div>
+							<div class="edit-prof-holder" ng-show="showNameBtn">
+								<input type="text" placeholder="{{trans('modals_settings_settings_name')}} - {{trans('optional')}}" name="user_name" ng-model="addContactData.name"
+								 class="user_name">
+							</div>
+						</div>
+					</div>
+					<button ng-show="showCodeInput || showNameBtn" class="btn btn-primary settings-send-verification-call" ng-click="showCodeInput ? AddCallerId() : finishCallerId()"
+					 ng-disabled="addContactData.voice_code.length != 4 || !showCallCodeField">{{showNameBtn ? trans('skip') : trans('wizard_next')}}
+					</button>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="setup_acc timezone_holder main_box" ng-if="!currentUser.timezone && wizardStepTimezone && !wizardStepCallerId">
+		<div class="heading">{{trans('setup_account')}}</div>
+		<div class="body">
+			<div class="icon">
+				<img src="/assets/callburn/images/timezone_icon.png" alt="Timezone">
+			</div>
+			<h1>{{trans('timezone_missing_title_1')}}</h1>
+			<h2>{{trans('timezone_missing_title_2')}}</h2>
+			<div class="text-center select-second-type timezone">
+				<timezone-selector ng-mousedown="toggleTimezoneSelector" ng-model="currentUser.timezone" ng-change="editTimezone()" class="account_settings_select">
+				</timezone-selector>
+				<button ng-click="wizardFinish()" ng-disabled="!currentUser.timezone" class="btn btn-primary">{{trans('wizard_finalize')}}</button>
+			</div>
+		</div>
+	</div>
+</div>

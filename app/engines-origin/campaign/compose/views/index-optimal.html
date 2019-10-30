@@ -1,0 +1,11 @@
+<div class="col-lg-8 col-lg-offset-2">
+    <caller-id-timezone-checker pagename="message"></caller-id-timezone-checker>
+</div>
+<br>
+<div ng-if="currentUser.numbers.length > 0 && currentUser.timezone">
+    <ng-include src="'/app/engines/campaign/compose/views/compose-step-1.html'" ng-controller="ComposeStep1Controller"></ng-include>
+    <!-- <div id="step2" class="arrow-down-to col-lg-2" data-ng-if="CampaignComposeService.canGoToStep2" data-ng-click="CampaignComposeService.goToStep(2)"><img src="/assets/callburn/images/images/arrow_3x.svg"></div> -->
+    <ng-include src="'/app/engines/campaign/compose/views/compose-step-2.html'"></ng-include>
+    <!-- <div id="step3" class="arrow-down-to col-lg-2" data-ng-if="CampaignComposeService.canGoToStep3" data-ng-click="CampaignComposeService.goToStep3()"><img src="/assets/callburn/images/images/arrow_3x.svg"></div> -->
+    <ng-include src="'/app/engines/campaign/compose/views/compose-step-3.html'" ng-controller="ComposeStep3Controller"></ng-include>
+</div>

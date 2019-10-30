@@ -1,0 +1,834 @@
+.tutorial-blur {
+  .active-tutorial {
+    z-index: 9999;
+  }
+
+}
+
+.div-tutorial {
+  position: absolute;
+  z-index: 9000;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  background-color: rgba(251, 251, 251, 0.8);
+}
+.dashboard .fix .dashboard-icons-counter {
+  padding-top: 14px;
+  height: 44px;
+}
+
+.show-step-control {
+  &:before {
+    content: "";
+    display: block;
+    width: 20px;
+    float: left;
+    height: 10px;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 15px solid $callburn-blue;
+    margin-top: -18px;
+    margin-left: 54%;
+  }
+  padding-bottom: 20px;
+  border: 3px solid $callburn-blue;
+  border-radius: 20px;
+  background-color: $white;
+  z-index: 9009;
+  &.step1 {
+    margin-top: 172px;
+    margin-left: 23%;
+  }
+  &.step2 {
+    margin-top: 172px;
+    margin-left: 33%;
+  }
+  &.step3 {
+    margin-top: 172px;
+    margin-left: 46%;
+  }
+  &.step4 {
+    margin-top: 172px;
+    margin-left: 54%;
+  }
+  &.step5 {
+    margin-top: 172px;
+    margin-left: 62.5%;
+  }
+  &.step6 {
+    margin-top: 130px;
+    margin-left: 63%;
+  }
+  &.step7 {
+    margin-top: 60px;
+    margin-left: 45%;
+  }
+  &.step8 {
+    margin-top: 60px;
+    margin-left: 63%;
+  }
+  &.step9 {
+    margin-top: 437px;
+    margin-left: 30%;
+    width: 20%;
+  }
+  &.step10 {
+    position: fixed;
+    right: 93px;
+    bottom: 28px;
+    &:before {
+      display: none;
+    }
+    &:after {
+      content: "";
+      display: block;
+      width: 20px;
+      float: right;
+      height: 10px;
+      border-top: 15px solid transparent;
+      border-bottom: 15px solid transparent;
+      border-left: 15px solid #3190e6;
+      margin-top: -21px;
+      margin-left: 97%;
+      margin-right: -38px;
+      clear: both;
+      position: absolute;
+    }
+  }
+
+  .show-step-control-text {
+    display: block;
+    text-align: justify;
+    font-family: Helvetica-Light;
+    padding-top: 10px;
+    color: $callburn-gray;
+  }
+  .show-step-control-step {
+    color: $callburn-orange;
+    display: block;
+    font-family: Helvetica-Bold;
+    font-size: 16px;
+    padding-bottom: 10px;
+  }
+  .show-step-control-back {
+    .btn {
+      min-height: 5px;
+      font-family: Helvetica-Bold;
+      color: $white !important;
+      &.btn-default {
+        background-color: $callburn-tutorial-black !important;
+        border: 1px solid $callburn-tutorial-black !important;
+        &.hover {
+          background-color: darken($callburn-tutorial-black, 15%) !important;
+          border: 1px solid darken($callburn-tutorial-black, 15%) !important;
+        }
+      }
+    }
+  }
+  .show-step-control-skip {
+    padding-left: 5px;
+    padding-right: 5px;
+    color: $callburn-orange;
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  .show-step-control-next {
+    .btn {
+      min-height: 5px;
+      font-family: Helvetica-Bold;
+      color: $white !important;
+      &.btn-success-tutorial {
+        float: right;
+        background-color: $callburn-tutorial-green;
+        border: 1px solid $callburn-tutorial-green;
+        &.hover {
+          background-color: darken($callburn-tutorial-green, 15%);
+          border: 1px solid darken($callburn-tutorial-green, 15%);
+        }
+      }
+    }
+  }
+}
+
+.nudgespot-clean {
+  z-index: 2;
+}
+
+.tutorial {
+  cursor: pointer;
+}
+
+
+@media screen and (max-width: 1720px) {
+  .show-step-control.step4 {
+    margin-left: 55%;
+  }
+  .show-step-control.step5 {
+    margin-left: 65%;
+  }
+  .show-step-control.step6 {
+    margin-left: 67%;
+    width: 19%;
+  }
+  .show-step-control.step7 {
+    margin-left: 43%;
+  }
+  .show-step-control.step10 {
+    right: 97px;
+    bottom: 23px;
+  }
+  .show-step-control.step10:after {
+    margin-top: -27px;
+  }
+}
+
+@media screen and (max-width: 1600px) {
+  .show-step-control.step6 {
+    width: 21%;
+  }
+  .show-step-control.step10 {
+    margin-top: 78vh;
+    margin-left: 68%;
+  }
+}
+
+@media screen and (max-width: 1572px) {
+  .show-step-control.step10:after {
+    margin-left: 96%;
+  }
+  .show-step-control.step10 {
+    right: 94px;
+  }
+}
+
+@media screen and (max-width: 1520px) {
+  .show-step-control.step1 {
+    margin-top: 172px;
+    margin-left: 17%;
+  }
+  .show-step-control.step2 {
+    margin-top: 172px;
+    margin-left: 31%;
+    width: 19%;
+  }
+  .show-step-control.step3 {
+    width: 20%;
+    margin-left: 43%;
+  }
+  .show-step-control.step4 {
+    margin-left: 54%;
+    width: 20%;
+  }
+  .show-step-control.step5 {
+    width: 20%;
+  }
+  .show-step-control.step6 {
+    margin-left: 68%;
+  }
+  .show-step-control.step8 {
+    margin-left: 60%;
+    width: 22%;
+  }
+}
+
+@media screen and (max-width: 1460px) {
+
+  .show-step-control.step6 {
+    margin-left: 69%;
+    width: 23%;
+  }
+  .show-step-control.step7 {
+    margin-left: 41%;
+  }
+  .show-step-control.step9 {
+    margin-left: 28%;
+  }
+}
+
+@media screen and (max-width: 1400px) {
+  .show-step-control.step6 {
+    margin-left: 71%;
+    width: 21%;
+  }
+  .show-step-control.step10 {
+    right: 96px;
+  }
+}
+
+@media screen and (max-width: 1310px) {
+
+  .show-step-control.step2 {
+    margin-left: 28%;
+    width: 22%;
+  }
+  .show-step-control.step3 {
+    width: 22%;
+    margin-left: 42%;
+  }
+  .show-step-control.step4 {
+    width: 23%;
+  }
+  .show-step-control.step5 {
+    margin-left: 66%;
+    width: 23%;
+  }
+  .show-step-control.step6 {
+    margin-left: 73%;
+    width: 22%;
+  }
+  .show-step-control.step9 {
+    margin-left: 25%;
+    width: 22%;
+  }
+  .show-step-control.step10 {
+    right: 97px;
+  }
+}
+
+@media screen and (max-width: 1199px) {
+  .show-step-control.step1,
+  .show-step-control.step2,
+  .show-step-control.step3,
+  .show-step-control.step4,
+  .show-step-control.step5
+  {
+    margin-top: 122px;
+  }
+  .show-step-control {
+    width: 16.66667%;
+    float: left;
+  }
+  .show-step-control.step1 {
+    margin-left: 8%;
+  }
+  .show-step-control.step2 {
+    margin-left: 16%;
+    width: 26%;
+  }
+  .show-step-control.step3 {
+    margin-left: 34%;
+    width: 24%;
+  }
+  .show-step-control.step4 {
+    margin-left: 46%;
+  }
+  .show-step-control.step5 {
+    margin-left: 59%;
+    width: 25%;
+  }
+  .show-step-control.step6 {
+    margin-left: 71%;
+    width: 25%;
+  }
+  .show-step-control.step7 {
+    margin-left: 47%;
+  }
+  .show-step-control.step8 {
+    margin-left: 67%;
+    width: 24%;
+  }
+  .show-step-control.step9 {
+    margin-left: 26%;
+    width: 23%;
+  }
+  .compose_now.dashboard .col-lg-3 {
+    width: 25%;
+    float: left;
+  }
+}
+
+@media screen and (max-width: 1189px) {
+  .show-step-control.step10:after {
+    margin-left: 95%;
+  }
+}
+
+@media screen and (max-width: 1145px) {
+
+  .show-step-control {
+    width: 18%;
+  }
+  .show-step-control.step1 {
+    margin-left: 5%;
+  }
+  .show-step-control.step4 {
+    margin-left: 45%;
+    width:27%;
+  }
+  .show-step-control.step5 {
+    width: 29%;
+  }
+  .show-step-control.step7 {
+    width: 28%;
+    margin-left: 45%;
+  }
+  .show-step-control.step8 {
+    width: 25%;
+  }
+  .show-step-control.step10 {
+    width: 30%;
+  }
+  .show-step-control.step10:after {
+    margin-left: 96%;
+  }
+}
+
+
+@media screen and (max-width: 1100px) {
+
+  .show-step-control.step3 {
+    margin-left: 31%;
+    width: 27%;
+  }
+  .show-step-control.step8 {
+    width: 26%;
+  }
+  .show-step-control.step9 {
+    margin-left: 23%;
+    width: 26%;
+  }
+}
+
+@media screen and (max-width: 1062px) {
+
+  .show-step-control.step6 {
+    margin-left: 73%;
+    width: 26%;
+  }
+  .show-step-control.step10 {
+    margin-left: 58%;
+    margin-top: 78vh;
+    width: 32%;
+  }
+}
+
+@media screen and (max-width: 1046px) {
+
+  .show-step-control.step1,
+  .show-step-control.step2,
+  .show-step-control.step3,
+  .show-step-control.step4,
+  .show-step-control.step5
+  {
+    margin-top: 122px;
+  }
+  .show-step-control.step1 {
+    width: 21%;
+    margin-left: 1%;
+  }
+  .show-step-control.step2 {
+    margin-left: 13%;
+    width: 30%;
+  }
+  .show-step-control.step9 {
+    margin-top: 387px;
+  }
+}
+
+
+@media screen and (max-width: 1016px) {
+
+  .show-step-control {
+    width: 20%;
+  }
+  .show-step-control.step5 {
+    margin-left: 62%;
+    width: 31%;
+  }
+  .show-step-control.step7 {
+    padding-left: 10px !important;
+    padding-right: 10px;
+  }
+
+  .show-step-control.step8 {
+    margin-left: 69%;
+    width: 29%;
+  }
+  .show-step-control.step9 {
+    margin-top: 397px;
+    margin-left: 22%;
+    width: 29%;
+  }
+  .show-step-control.step10 {
+    padding-left: 15px !important;
+    padding-right: 15px;
+  }
+  .dashboard .dashboard-icons .dashboard-icons-message {
+    font-size: 11px !important;
+  }
+
+  .dashboard .dashboard-icons .bordered {
+    border-radius: 3px;
+    height: 147px;
+  }
+
+  .compose_now.dashboard .col-lg-3 {
+    width: 25%;
+    float: left;
+    padding-left: 5px !important;
+    padding-right: 5px;
+  }
+  .dashboard .dashboard-icons .dashboard-icons-counter {
+    padding-top: 14px;
+    height: 52px;
+  }
+
+  .dashboard .fix .dashboard-icons-counter {
+    padding-top: 14px;
+    height: 59px;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .navbar{
+    .container {
+      width:100%;
+    }
+  }
+  .show-step-control.step1,
+  .show-step-control.step2,
+  .show-step-control.step3,
+  .show-step-control.step4,
+  .show-step-control.step5
+  {
+    margin-top: 172px;
+  }
+  .show-step-control.step1 {
+    width: 23%;
+  }
+  .show-step-control.step2 {
+    margin-left: 14%;
+  }
+  .show-step-control.step4 {
+    margin-left: 46%;
+    width: 29%;
+  }
+  .show-step-control.step6 {
+    margin-left: 73%;
+    width: 27%;
+  }
+  .show-step-control.step7 {
+    width: 27%;
+    margin-left: 49%;
+  }
+  .show-step-control.step8 {
+    margin-left: 70%;
+    width: 29%;
+  }
+  .show-step-control.step9 {
+    margin-top: 448px;
+    margin-left: 24%;
+    width: 27%;
+  }
+
+}
+
+
+@media screen and (max-width: 965px) {
+  .show-step-control.step4 {
+    width: 32%;
+  }
+  .show-step-control.step3 {
+    margin-left: 31%;
+    width: 31%;
+  }
+}
+
+@media screen and (max-width: 932px) {
+  .show-step-control.step10:after {
+    margin-left: 95%;
+  }
+  .show-step-control.step10 {
+    right: 95px;
+  }
+}
+@media screen and (max-width: 940px) {
+
+  .show-step-control.step1,
+  .show-step-control.step2,
+  .show-step-control.step3,
+  .show-step-control.step4,
+  .show-step-control.step5
+  {
+    margin-top: 176px;
+  }
+  .show-step-control.step1 {
+    width: 22%;
+    margin-left: 2%;
+  }
+  .show-step-control.step2 {
+    width: 30%;
+    margin-top: 176px;
+    margin-left: 16%;
+  }
+  .show-step-control.step3 {
+    width: 33%;
+    margin-left: 33%;
+  }
+  .show-step-control.step4 {
+     margin-left: 48%;
+   }
+  .show-step-control.step6 {
+    width: 29%;
+    margin-left: 70%;
+    margin-top: 127px;
+  }
+  .show-step-control.step7 {
+    width: 29%;
+    margin-left: 51%;
+  }
+  .show-step-control.step8 {
+    margin-left: 72%;
+    width: 28%;
+  }
+  .show-step-control.step9 {
+    margin-top: 448px;
+  }
+  .div-tutorial .show-step-control .show-step-control-next .btn.btn-success-tutorial,
+  .div-tutorial .show-step-control .show-step-control-back .btn.btn-default{
+    padding: 3px 7px;
+  }
+}
+
+
+@media screen and (max-width: 915px) {
+  .show-step-control.step5 {
+    margin-left: 65%;
+    width: 32%;
+  }
+  .show-step-control.step8 {
+    margin-left: 73%;
+    width: 27%;
+  }
+  .show-step-control.step9 {
+    margin-left: 22%;
+    width: 28%;
+    margin-top: 448px;
+  }
+}
+
+@media screen and (max-width: 903px) {
+  .show-step-control.step7,
+  .show-step-control.step8
+  {
+    margin-top: 115px;
+  }
+  .show-step-control.step7 {
+    margin-left: 20%;
+  }
+  .show-step-control.step8 {
+    margin-left: 41%;
+    width: 30%;
+  }
+  .show-step-control.step9 {
+    margin-top: 452px;
+  }
+
+}
+@media screen and (max-width: 900px) {
+  .show-step-control.step1 {
+    width: 24%;
+    margin-left: 1%;
+    margin-top: 176px;
+  }
+  .show-step-control.step2 {
+    width: 33%;
+  }
+  .show-step-control.step4 {
+    width: 33%;
+    margin-left: 49%;
+  }
+  .show-step-control.step7 {
+    margin-top: 114px;
+    width: 29%;
+    margin-left: 19%;
+  }
+}
+
+@media screen and (max-width: 880px) {
+  .show-step-control.step4 {
+    width: 34%;
+    margin-left: 50%;
+  }
+  .show-step-control.step5 {
+    width: 32%;
+    margin-left: 67%;
+   }
+  .show-step-control.step6 {
+    width: 32%;
+    margin-left: 67%;
+  }
+  .show-step-control.step7 {
+    margin-top: 114px;
+    margin-left: 20%;
+  }
+  .show-step-control.step8 {
+    margin-left: 42%;
+    width: 31%;
+  }
+  .show-step-control.step9 {
+    margin-left: 20%;
+    width: 30%;
+  }
+
+}
+
+@media screen and (max-width: 840px) {
+
+  .navbar .header-menu li {
+    margin-right: 1.4vw;
+  }
+  .show-step-control.step1,
+  .show-step-control.step2,
+  .show-step-control.step3,
+  .show-step-control.step4,
+  .show-step-control.step5
+  {
+    padding: 0px 10px 15px;
+  }
+  .show-step-control.step1 {
+    width: 25%;
+    margin-left: 3%;
+  }
+  .show-step-control.step2 {
+    width: 34%;
+  }
+  .show-step-control.step7 {
+    margin-top: 57px;
+    width: 30%;
+    margin-left: 50%;
+  }
+  .show-step-control.step8 {
+    margin-top: 60px;
+    margin-left: 70%;
+    width: 30%;
+  }
+  .navbar ul li {
+    margin-right: 1.2vw;
+  }
+}
+
+
+@media screen and (max-width: 829px) {
+
+  .show-step-control.step1 {
+    margin-left: 1%;
+  }
+  .show-step-control.step5 {
+    width: 31%;
+    margin-left: 68%;
+  }
+  .show-step-control.step9 {
+    width: 31%;
+    margin-left: 19%;
+  }
+}
+
+@media screen and (max-width: 818px) {
+  .show-step-control.step4 {
+    width: 35%;
+    margin-left: 51%;
+  }
+  .show-step-control.step7 {
+    margin-top: 114px;
+    margin-left: 20%;
+  }
+  .show-step-control.step8 {
+    margin-top: 115px;
+    margin-left: 39%;
+    width: 33%;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .show-step-control.step4 {
+    margin-left: 53%;
+  }
+  .show-step-control.step5 {
+    width: 31%;
+    margin-left: 68%;
+  }
+  .show-step-control.step6 {
+    width: 33%;
+    margin-left: 65%;
+  }
+  .show-step-control.step7 {
+    width: 31%;
+    margin-left: 17%;
+  }
+  .show-step-control.step10 {
+    right: 97px;
+    width: 43%;
+  }
+  .show-step-control.step10:after {
+    margin-left: 96%;
+  }
+}
+
+
+@media screen and (max-width: 788px) {
+  .navbar .header-menu li {
+    margin-right: 0vw;
+  }
+  .show-step-control.step4 {
+    margin-left: 49%;
+  }
+  .show-step-control.step10 {
+    margin-left: 43%;
+    width: 44%;
+    margin-top: 75vh;
+  }
+  .tutorial .container.dash {
+    width: 740px;
+  }
+}
+
+
+@media screen and (max-width: 779px) {
+  .compose_now.dashboard .col-lg-3 {
+    padding-left: 0px !important;
+    padding-right: 0px;
+  }
+  .show-step-control.step8 {
+    margin-left: 46%;
+    width: 33%;
+  }
+  .col-lg-12.col-md-12.col-xs-12.col-sm-12.dash {
+    padding-left: 10px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .compose_now.dashboard .col-lg-3 {
+    width: 50%;
+    padding-bottom: 20px;
+  }
+  .tutorial {
+    display: none;
+  }
+  .div-tutorial{
+    display:none;
+  }
+}
+
+@media screen and (max-width: 743px) {
+  .compose_now.dashboard .mt-40 {
+    margin-top: 0px !important;
+  }
+}
+
+@media screen and (max-width: 394px) {
+  .dashboard .dashboard-icons {
+    width: 95%;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  .col-lg-3 {
+    width: 100%;
+    padding-bottom: 20px;
+  }
+}

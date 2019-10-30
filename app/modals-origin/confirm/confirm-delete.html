@@ -1,0 +1,24 @@
+<div class="new_modal_style red">
+    <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">{{trans('Confirm_action')}}</h4>
+        <i data-ng-click="hideOverlay()" class="fa fa-times"></i>
+    </div>
+    <div class="modal-body">
+        <div class="modal_window">
+            <div class="modal_container">
+                <div class="modal_select_container text-center">
+                    <p>
+                        {{trans('this_action_is_irreversible')}}
+                    </p>
+                    <p>
+                        {{trans('to_confirm_it_please_click_the_button_below')}}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer text-center">
+        <img src="assets/callburn/images/images/blue-audio-spinner.svg" ng-if="deleteActionSpinner" alt="" class="delete_action_spinner">
+        <button class="btn btn-danger" ng-disabled="disableActionButton" ng-click="deleteConfirmation()">{{trans('confirm_irreversible_action')}}</button>
+    </div>
+</div>

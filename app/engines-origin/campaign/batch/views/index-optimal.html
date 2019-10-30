@@ -1,0 +1,53 @@
+<div class="high-col">
+    <div class="container">
+        <div class="row compose_now bacth">
+
+            <!--step 3-->
+            <div class="col-lg-12 high-col">
+                <h1>{{trans('campaning_batch_index')}}</h1>
+                <div class="col-lg-12 high-col" style="margin-bottom: 20px;">
+                    <div class="row">
+                        <div class="col-lg-2 col-md-3 col-xs-12 col-sm-12 high-col">
+                            <div class="row">
+                                <ng-include src="'/app/engines/campaign/overview/views/menu.html'"></ng-include>
+                            </div>
+                        </div>
+                        <div class="col-lg-10 col-md-9 col-xs-12 col-sm-12 high-col" ng-if="currentUser.numbers[0].phone_number">
+                            <!-- include steps-->
+                            <ng-include src="'/app/engines/campaign/batch/views/batch-step-1.html'"></ng-include>
+
+                            <ng-include src="'/app/engines/campaign/batch/views/batch-step-2.html'"
+                                        data-ng-if="isFileUploaded == 1"></ng-include>
+
+                            <ng-include src="'/app/engines/campaign/batch/views/batch-step-3.html'"
+                                        data-ng-if="isFileUploaded == 1"></ng-include>
+
+                            <!-- include steps-->
+                        </div>
+                        <div class="col-lg-9 empty-table" data-ng-if="!currentUser.numbers[0].phone_number">
+                            <h1>{{trans('batch_index_batch_send')}}</h1>
+                            <span>{{trans('batch_index_Validate_a')}}<a href="#" ui-sref="account.settings"> {{trans('batch_index_new_caller')}} </a> {{trans('batch_index_to_continue_send')}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="step3"></div>
+        <div id="step2"></div>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

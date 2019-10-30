@@ -1,0 +1,17 @@
+<div class="new_modal_style red">
+    <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">{{trans('Confirm_action')}}</h4>
+        <i ng-click="hideOverlay();close()" class="fa fa-times"></i>
+    </div>
+    <div class="modal-body">
+        <p>
+            {{trans('this_action_is_irreversible')}}
+        </p>
+        <p>
+            {{trans('to_confirm_it_please_click_the_button_below')}}
+        </p>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-danger" ng-disabled="campaign.showStatusLoader" ng-click="acceptStopMessage(campaign)">{{trans('confirm_irreversible_action')}}</button>
+    </div>
+</div>

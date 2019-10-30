@@ -1,0 +1,32 @@
+<div class="new_modal_style mark_unmark_modal">
+  <div class="modal-header">
+    <h4 class="modal-title" id="myModalLabel">
+      {{ trans("mark_and_add_comment") }}
+    </h4>
+    <i ng-click="hideOverlay();close()" class="fa fa-times"></i>
+  </div>
+  <div class="modal-body">
+    <p>{{ trans("add_new_comment") }}</p>
+    <textarea
+      type="text"
+      placeholder="{{ trans('new_comment_placeholder') }}"
+      ng-model="markData.comment"
+      rows="5"
+    ></textarea>
+    <div class="comments">
+      <ul>
+        <li ng-repeat="comment in comments track by $index">
+          {{comment}}
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-success" ng-click="save(markData.comment)">
+      {{ trans("button_save") }}
+    </button>
+    <button class="btn btn-danger" ng-click="close()">
+      {{ trans("addressbook_import_contact_cancel") }}
+    </button>
+  </div>
+</div>

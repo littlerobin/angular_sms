@@ -1,0 +1,23 @@
+<div class="customize-modal new_modal_style confirm_unsaved">
+    <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">{{trans('unsaved_changes_title')}}</h4>
+        <i data-ng-click="hideOverlay()" class="fa fa-times"></i>
+    </div>
+    <div class="modal-body">
+        <div class="modal_window">
+            <div class="modal_container">
+                <div class="modal_select_container text-center">
+                    <p>
+                        {{trans('unsaved_changes_text')}}
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer text-center">
+        <button class="btn btn-danger" ng-click="modalCancel()">{{trans('unsaved_changes_button_1')}}</button>
+        <button class="btn btn-success" ng-click="modalSuccess()">{{trans('unsaved_changes_button_2')}}</button>
+    </div>
+
+</div>

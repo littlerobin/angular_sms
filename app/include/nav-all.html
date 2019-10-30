@@ -1,0 +1,260 @@
+<div id="mainNavBar">
+    <nav class="navbar nav-all">
+        <div class="container">
+            <div class="navbar-header">
+                <div class="logo">
+                    <a href="#">
+                        <img src="/assets/callburn/images/callburn_logo.svg">
+                    </a>
+                </div>
+            </div>
+            <ul class="nav navbar-nav navbar-right items">
+                <!-- <li class="email"><a href="#"> <span class="l1">{{currentUser.email}}</span></a></li> -->
+                <li uib-dropdown keyboard-nav>
+                    <a class="dropdown-toggle" uib-dropdown-toggle>
+                        <span class="not_counter" ng-show="!isEmptyObj(schedulations)">
+                            {{schedulationCounter}}
+                        </span>
+                        <span class="l1">
+                            <img src="/assets/callburn/images/images/TimeZoneIcon.svg" title="{{currentTime}}" class="img-responsive {{currentUser.timezone === null ? 'snippet_blinking' : ''}}">
+                            <span>
+                                <span ng-show="currentUser.timezone" class="nav-current-time">{{currentTime}}</span>
+                                <!-- <span ng-show="!currentUser.timezone" class="nav-current-time timezone-missing">N/A</span> -->
+                            </span>
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu clock_hoverbox">
+                        <li ng-if="currentUser.timezone === null" class="time_zone" ng-click="goToSettingsPage()">
+                            {{trans('no_timezone_detected')}}
+                        </li>
+                        <li ng-if="currentUser.timezone !== null" class="time_zone" ng-click="goToSettingsPage()">
+                            {{trans('is_not_your_timezone')}}
+                        </li>
+                        <li ng-show="!isEmptyObj(schedulations)">
+                            <li ng-repeat="event in schedulations" class="event" ui-sref="campaign.statistics({campaign_id: event._id, serverTimeZone: event.timezone})">
+                                <span href>
+                                    <a>
+                                        <strong>{{event.campaign_name ? event.campaign_name : trans('No_Name')}}:</strong>
+                                    </a>
+                                    <div class="clearfix"></div>
+                                    <i>{{event.eventDate}}</i>
+                                    <p>{{event.recipients}}</p>
+                                </span>
+                            </li>
+                        </li>
+                        <li ng-show="isEmptyObj(schedulations)" class="fut_events">
+                            {{trans('no_future_events')}}
+                        </li>
+                    </ul>
+                </li>
+                <li class="lng">
+                    <a href>
+                        <span class="l1">
+                            <callburn-select ng-model="language" options="languages" show-attr="name" keep-attr='code' image-attr="flags" image-url="/assets/callburn/images/lang-flags/{{currentLanguage}}.svg"
+                                select-text="{{currentLanguageName | uppercase}}" ng-change="changeLanguage(language)" class="language_change global_class">
+                            </callburn-select>
+                        </span>
+                    </a>
+                </li>
+                <li ng-class="{'active-tutorial': stepTutorial==7}">
+                    <a ui-sref="account.financials" style="padding-right: 0px;">
+                        <span class="l1"><img src="/assets/callburn/images/images/pig-icon@3x.svg" title="€ {{currentUser.balance}}"
+                                class="img-responsive {{currentUser.balance < currentUser.notify_when_balance_is_low && currentUser.isDeposited ? 'snippet_blinking' : ''}}">
+                            <span class="pig-current-balance">
+                                <span>€ {{currentUser.balance - currentUser.bonus | number:2}} </span>
+                                <a ng-hide="true" ng-if="currentUser.retainedBalance + currentUser.retainedGiftBalance != 0" class="pig-retaine-balance"
+                                    uib-tooltip="{{trans('retained_credit')}}" ui-sref="account.financials" tooltip-placement="bottom-right">
+                                    (-{{currentUser.retainedGiftBalance + currentUser.retainedBalance | number:2}})
+                                </a>
+                                <i class="pig-gift-balance" ng-if="currentUser.bonus > 0">
+                                    <span>
+                                        ({{currentUser.bonus | number:2}} {{trans('header_pig_gift')}})
+                                    </span>
+                                </i>
+                            </span>
+                        </span>
+                    </a>
+                </li>
+                <li class="dropdown balanse-lnk" ng-class="{opened: notifications.length > 0 && notificationsDropdown}" keyboard-nav>
+                    <a href="" id="notificationsDropdownButton" ng-click="openNotificationsDropdown()">
+                        <div id="notificationsDropdownButton" ng-click="openNotificationsDropdown()">
+                            <img src="/assets/callburn/images/images/esclamation-point@3x.svg" title="{{notifications.length}}" class="img-responsive {{notSeenNotificationsCount > 0 ? 'snippet_blinking' : ''}}">
+                            <p ng-class="{invise: !notificationsDropdown || !notifications.length}" ng-click="clearNotifications()">{{trans('clear_all')}}</p>
+                            <!-- <i ng-click="clearNotifications()" data-ng-show="notifications.length > 0 && notificationsDropdown" class="fa fa-trash"></i> -->
+                        </div>
+                        <span ng-hide="notSeenNotificationsCount == 0" class="not_counter">{{notSeenNotificationsCount}}</span>
+                    </a>
+                    <ul id="notificationsDropdown" style="position: absolute; z-index: 999" class="dropdown-menu notification notification-dropdown notificationScrollStyle"
+                        data-ng-show="notifications.length > 0 && notificationsDropdown" ng-class="scrollBar">
+                        <li ng-repeat="notification in notifications track by $index" class="notification-li-content progress_holder new_file_upload {{notification.route != 'tickets' ? 'notification-dropdown-no-ticket' : ''}}">
+                            <img ng-hide="notification.text !== undefined" src="assets/callburn/images/images/gray-audio-spinner.svg" class="balance_spinner"
+                                alt="">
+                            <a ng-show="notification.text !== undefined" href="" ng-click="goToNotification(notification)">
+                                <img ng-src="assets/callburn/images/images/{{notificationSection(notification.section)}}" class="notification_section_icon"
+                                    ng-if="notificationSection(notification.section)" alt="">
+                                <div class="notification_section_text">
+                                    <uib-progressbar ng-show="notification.progressbar === 1" class="active {{notification.status == 'success' || notification.status == 'danger' ? 'progress' : 'progress-striped'}}"
+                                        style="" max="1" value="1" type="{{notification.status}}">
+                                        <i> {{notification.progressbar_data}} </i>
+                                    </uib-progressbar>
+                                    <span class="vm_name" ng-bind-html="notification.text"></span>
+                                    <span ng-if="notification.created_at" class="created_at">
+                                        {{ notification.created_at ? getHumanizedDiffTime(notification.created_at) : ''}}
+                                    </span>
+                                </div>
+                            </a>
+                            <i ng-show="notification.text !== undefined" ng-click="deleteNotification(notification._id)" class="fa fa-trash"></i>
+                        </li>
+                        <li ng-if="moreNotifications" ng-click="showMoreNotifications()" class="show_more_notification">
+                            <span id="showMoreNotifications">
+                                {{trans('show_more_notifications')}}
+                            </span>
+                        </li>
+                    </ul>
+                    <ul class="dropdown-menu notification notification-dropdown no-notification" ng-if="(!notifications.length || currentUser.inProgressCampaigns.length == 0) && notificationsDropdown">
+                        <li>
+                            <p href="" class="no_notification">
+                                {{trans('no_notification')}}
+                            </p>
+                            <div class="status-bar">
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li ng-class="{'active-tutorial': stepTutorial==8}" class="dropdown acc" uib-dropdown keyboard-nav>
+                    <a href="#" class="dropdown-toggle acount" uib-dropdown-toggle>
+                        <span class="l1">{{currentUser.email}}</span>
+                        <div class="acc_in">
+                            <img src="/assets/callburn/images/images/subsections/active/dropdown-icon-active.svg" class="img-responsive corner-blue">
+                        </div>
+                    </a>
+                    <ul class="dropdown-menu user-acount">
+                        <li>
+                            <a href="#" class="width_100_percent" ui-sref="account.settings">
+                                <span>
+                                    <i class="glyphicon glyphicon-wrench"></i>
+                                    <span>{{trans('include_nav_all_settings')}}</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="invoices width_100_percent" ui-sref="account.financials({fromInvoices: true})">
+                                <span class="icon icon-invoice">
+                                    <span>{{trans('include_nav_all_invoices')}}</span>
+                                </span>
+                            </a>
+                        </li>
+                        <!-- <li>
+                            <a href="#" class="width_100_percent" ui-sref="account.affiliate">
+                                <span>
+                                    <span>{{trans('affiliate')}}</span>
+                                </span>
+                            </a>
+                        </li> -->
+                        <li role="separator" class="divider"></li>
+                        <li>
+                            <a href="#" class="width_100_percent" data-ng-click="stepTutorial? '' : logOut()">
+                                <span><i class="glyphicon glyphicon-off"></i><span>{{trans('include_nav_all_logout')}}</span></span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="compose-new-resp col-xs-12">
+                <div ng-if="!currentUser.can_access_beta">
+                    <br>
+                    <br>
+                    <br>
+                </div>
+            </div>
+            <div class="all_menu_holder {{navCollapsed ? 'nav_collapsed' : ''}}">
+                <div class="all-menu">
+                    <ul class="nav navbar-nav header-menu">
+                        <li ng-if="currentUser.can_access_beta">
+                            <a href="#" ui-sref-opts="{reload: true}" ui-sref="campaign.overview()" class="vm_holder top_menu_holder" ng-class="{active: currentActiveRoute == 'campaign','active-tutorial': stepTutorial==2}">
+                                <span class="" ng-class="{active: currentActiveRoute == 'campaign'}">
+                                    <div class="top_menu_icon icon-messages"></div>
+                                    <span class="">{{trans('sidebar_message')}}</span>
+                                </span>
+                            </a>
+                        </li>
+
+                        <li ng-if="currentUser.can_access_beta" class="temp_holder" ng-class="{'active': currentActiveRoute === 'templates'}">
+                            <a href="#" ui-sref="campaign.templates" class="">
+                                <span class="icon-templates-holder">
+                                    {{trans('campaign_overview_menu_templates')}}
+                                </span>
+                            </a>
+                        </li>
+                        <li ng-if="currentUser.can_access_beta">
+                            <a href="#" ui-sref="addressbook.groups" class="phonebook_holder" ng-class="{active: currentActiveRoute == 'groups' || currentActiveRoute == 'contacts' || currentActiveRoute == 'addressbook', 'active-tutorial': stepTutorial==3}">
+                                <span class="" ng-class="{active: currentActiveRoute == 'groups' || currentActiveRoute == 'contacts' || currentActiveRoute == 'import' || currentActiveRoute == 'blacklist'}">
+                                    <div class="top_menu_icon icon-phonebook"></div>
+                                    <span>{{trans('include_nav_all_phonebook')}}</span>
+                                </span>
+                            </a>
+                        </li>
+                        <!-- <li>
+                            <a href="#" ui-sref="snippet.overview" class="ctc_holder" ng-class="{active: currentActiveRoute == 'snippet','active-tutorial': stepTutorial==4}">
+                                <span class="" ng-class="{active: currentActiveRoute == 'snippet'}">
+                                    <div class="top_menu_icon icon-click-to-call"></div>
+                                    <span>{{trans('sidebar_click_to_call')}}</span>
+                                    <i class="ctc_beta">Beta</i>
+                                </span>
+                            </a>
+                        </li> -->
+                        <!-- <li>
+                            <a href="#" ui-sref="conference.overview" class="conference_holder" ng-class="{active: currentActiveRoute == 'conference'}">
+                                <span class="">
+                                    <div class="top_menu_icon icon-conference"></div>
+                                    <span>{{trans('conference')}}</span>
+                                </span>
+                            </a>
+                        </li> -->
+                        <li ng-if="currentUser.can_access_beta">
+                            <a href="#" ui-sref="api.settings" class="api_holder" ng-class="{active: currentActiveRoute == 'api','active-tutorial': stepTutorial==5}">
+                                <span class="" ng-class="{active: currentActiveRoute == 'api'}">
+                                    <div class="top_menu_icon icon-api"></div>
+                                    <span>{{trans('include_nav_all_api')}}</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a ng-click="triggerChat()" class="support_holder" ng-class="{active: currentActiveRoute == 'video','active-tutorial': stepTutorial == 6}">
+                                <span class="" ng-class="{active: currentActiveRoute == 'video'}">
+                                    <div class="top_menu_icon icon-support"></div>
+                                    <span>{{trans('include_nav_all_support')}}</span>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div><!-- /.container-fluid -->
+            <div class="menu_bar pull-right {{navCollapsed ? 'nav_collapsed' : ''}}">
+                <button type="button" class="hamburger hamburger--arrowturn-r {{navCollapsed === true ? 'is-active' : ''}}" ng-click="navCollapsed = !navCollapsed">
+                    <span class="hamburger-box">
+                        <span class="sr-only">{{trans('include_nav_all_toggle_navigation')}}
+                        </span>
+                        <span class="hamburger-inner"></span>
+                        <span class="hamburger-inner"></span>
+                        <span class="hamburger-inner"></span>
+                    </span>
+                </button>
+            </div>
+
+            <div class="row">
+                <div class="clearfix"></div>
+                <slick ng-if="carouselTexts.length" settings="slickConfig" infinite=true>
+                    <li ng-repeat="text in carouselTexts">{{text}}</li>
+                </slick>
+                <slick settings="slickConfig" ng-if="numberLoaded">
+                </slick>
+            </div>
+        </div>
+    </nav>
+</div>
+<div ng-click="showRelativeTutorial()" class="btn btn-primary tutorial_label">
+    <img src="/assets/callburn/images/images/tutor_white.svg" alt="">
+    <p>{{trans('include_nav_all_support')}}</p>
+</div>
+<!-- TABS ARE FIXED (David) -->

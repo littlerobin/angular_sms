@@ -1,0 +1,1574 @@
+<div class="container">
+  <div class="row compose_now step-1-now">
+    <!-- step 1 -->
+    <h1 class="main_title topper">
+      {{
+        CampaignComposeService.editingCampaign
+          ? CampaignComposeService.campaignData.campaign_name
+          : trans("campaign_compose_compose_step_1_compose_new")
+      }}
+    </h1>
+    <div class="empty-table" ng-if="!currentUser.numbers[0].phone_number">
+      <span>
+        Validate a
+        <a href="#" ui-sref="account.settings"
+          >{{ trans("campaign_compose_compose_step_1_new_caller_id") }}
+        </a>
+        {{ trans("campaign_compose_compose_step_1_to_continue_send") }}
+      </span>
+    </div>
+    <div class="message_type">
+      <div
+        class="box"
+        ng-class="{'active': selectedType === 'vm'}"
+        ng-click="selectType('vm');goToStep3()"
+      >
+        <p class="header invis">{{ trans("recomendation") }}</p>
+        <div class="main">
+          <div class="img_holder vm_type">
+            <h1>{{ trans("incoming_call") }}</h1>
+            <h2>
+              {{
+                CampaignComposeService.campaignData.caller_id
+                  ? "+" + CampaignComposeService.campaignData.caller_id
+                  : trans("from_your_number")
+              }}
+            </h2>
+            <img src="/assets/images/compose/vm.svg" alt="vm" />
+          </div>
+          <div class="content">
+            <h1>{{ trans("dashboard_welcome_voice_messages") }}</h1>
+            <h2>{{ trans("only_vm_text") }}</h2>
+          </div>
+        </div>
+      </div>
+      <div
+        class="box"
+        ng-class="{'active': selectedType === 'vmSms'}"
+        ng-click="selectType('vmSms');goToStep3()"
+      >
+        <p class="header">{{ trans("recomendation") }}</p>
+        <div class="main">
+          <div class="img_holder vm_sms_type">
+            <h1>{{ trans("missed_call") }} (3)</h1>
+            <h2>
+              {{
+                CampaignComposeService.campaignData.caller_id
+                  ? "+" + CampaignComposeService.campaignData.caller_id
+                  : trans("from_your_number")
+              }}
+            </h2>
+            <h3>1 {{ trans("new_sms") }}</h3>
+            <img src="/assets/images/compose/vm_sms.svg" alt="vm and sms" />
+          </div>
+          <div class="content">
+            <h1>{{ trans("vm_and_sms_title") }}</h1>
+            <h2>{{ trans("vm_and_sms_text") }}</h2>
+          </div>
+        </div>
+      </div>
+      <div
+        class="box"
+        ng-class="{'active': selectedType === 'sms'}"
+        ng-click="selectType('sms');goToStep3()"
+      >
+        <p class="header invis">{{ trans("recomendation") }}</p>
+        <div class="main">
+          <div class="img_holder sms">
+            <h1>1 {{ trans("new_sms") }}</h1>
+            <img src="/assets/images/compose/sms.svg" alt="sms" />
+          </div>
+          <div class="content">
+            <h1>{{ trans("only_sms_title") }}</h1>
+            <h2>{{ trans("only_sms_text") }}</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="campaign_compose_compose_step_1-tab type_vm"
+      ng-if="currentUser.numbers[0].phone_number && selectedType === 'vm'"
+    >
+      <h1 class="main_title">{{ trans("create_message_content") }}</h1>
+      <div class="flex_row">
+        <div class="left_side" id="vm_err" ng-class="{error_border: fileIdErr}">
+          <uib-tabset active="audioActiveTab" type="pills" class="">
+            <uib-tab
+              select="selectedTab()"
+              disable="CampaignComposeService.checkIfAlreadyStarted()"
+              index="0"
+              heading="{{
+                trans('campaign_compose_compose_step_1_tts_technology')
+              }}"
+            >
+              <div class="">
+                <p class="compose_sp">
+                  {{ trans("compose_step_1_method_1_text") }}
+                </p>
+                <div class="compose_method_container">
+                  <div class="compose_method click_item">
+                    <div
+                      class="choose_lang_and_voice_container select-second-type step-1-lang-voice"
+                    >
+                      <ui-select
+                        class=""
+                        ng-model="ttsData.language"
+                        theme="bootstrap"
+                        id="_id"
+                        title="Choose an address"
+                      >
+                        <ui-select-match
+                          placeholder="{{
+                            trans('compose_step_1_method_1_select_default')
+                          }}"
+                        >
+                          <span class="select_voice">{{
+                            trans("select_the_voice")
+                          }}</span>
+                          {{ $select.selected.selectView }}
+                        </ui-select-match>
+                        <ui-select-choices
+                          repeat="language.ttsEngine as language in CampaignComposeService.ttsLanguages | filter: $select.search track by $index"
+                          ng-click="keepObject ? valueSelected(option,option,$index) : valueSelected(option[showAttr],option[keepAttr],$index)"
+                        >
+                          <div
+                            ng-bind-html="language.selectView | highlight: $select.search"
+                          ></div>
+                          <div
+                            class="ng-hide"
+                            ng-bind-html="language.ttsEngine | highlight: $select.search"
+                          ></div>
+                          <div
+                            class="ng-hide"
+                            ng-bind-html="language.languageName | highlight: $select.search"
+                          ></div>
+                        </ui-select-choices>
+                      </ui-select>
+                    </div>
+                    <textarea
+                      ng-model="ttsData.text"
+                      class="compose_method1_textarea"
+                      placeholder="{{
+                        trans('compose_step_1_method_1_placeholder')
+                      }}"
+                      ng-blur="!ttsData.language || !ttsData.text || CampaignComposeService.checkIfAlreadyStarted() ? null : editing ? editAudio(editingTemplate) : createAudioFromTextForVoice()"
+                    >
+                    </textarea>
+                    <button
+                      class="btn btn-success"
+                      ng-disabled="!ttsData.language || !ttsData.text || CampaignComposeService.checkIfAlreadyStarted()"
+                      data-ng-click="editing ? editAudio(editingTemplate) : createAudioFromTextForVoice()"
+                    >
+                      {{ trans("compose_step_1_method_1_compose") }}
+                    </button>
+                  </div>
+                  <span class="characters_count"
+                    >{{ trans("compose_step_1_method_1_characters_count") }}:
+                    {{ ttsData.text.length ? ttsData.text.length : 0 }}
+                  </span>
+                </div>
+              </div>
+              <div class="custom_vm_holder" data-ng-if="lastFileIsUploaded">
+                <div class="voice_container">
+                  <div
+                    ng-repeat="file in audioFiles track by $index"
+                    class="file_holder"
+                  >
+                    <div
+                      ng-class="{'voice':1, 'centered': 1,'active': file._id == CampaignComposeService.campaignData.campaign_voice_file_id}"
+                      ng-click="slsectAudio(file)"
+                      id="selectedAudio{{ file._id }}"
+                      uib-tooltip="{{ file.tts_text }}"
+                    >
+                      <p>{{ file.tts_text }}</p>
+                      <p class="audio_length" ng-if="file.length < 10">
+                        00:0{{ file.length }}”
+                      </p>
+                      <p
+                        class="audio_length"
+                        ng-if="file.length >= 10 && file.length < 60"
+                      >
+                        00:{{ file.length }}”
+                      </p>
+                    </div>
+                    <div class="non_select_area">
+                      <div class="cmp-new-play">
+                        <span
+                          class="fa"
+                          id="audioFilePlay{{ file._id }}"
+                          alt="play button"
+                          ng-class="file.playButtonClass ? file.playButtonClass : 'fa-play-circle'"
+                          data-ng-class="{'active play': file._id == CampaignComposeService.campaignData.campaign_voice_file_id}"
+                          data-ng-click="playPauseRecordedAudio(file)"
+                        ></span>
+                        <audio
+                          ng-show="false"
+                          controls
+                          id="composeTemplateFile{{ file._id }}"
+                          ng-src="{{ getAudioSource(file) }}"
+                        ></audio>
+                      </div>
+                      <i
+                        class="fa fa-times-circle pointer"
+                        ng-click="deleteAudio(file)"
+                      ></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </uib-tab>
+            <uib-tab
+              index="1"
+              disable="CampaignComposeService.checkIfAlreadyStarted()"
+              heading="{{
+                trans('campaign_compose_compose_step_1_upload_ffile')
+              }}"
+            >
+              <p class="compose_sp">
+                {{ trans("campaign_compose_compose_step_1_upload_an_audio") }}
+              </p>
+              <div
+                class="file_uploader_container {{
+                  CampaignComposeService.campaignData.uploadetAudioFile
+                    ? 'file_uploader_container_size'
+                    : ''
+                }} compose_step1_audio_upload"
+              >
+                <div
+                  nv-file-drop
+                  uploader="campaignVoiceMessageUpload"
+                  class="drag_drop"
+                >
+                  <p ng-show="!uploadingAudioName" class="text-center">
+                    {{ trans("campaign_compose_compose_step_1_move_your_mp3") }}
+                  </p>
+                  <div class="">
+                    <input
+                      ng-disabled="CampaignComposeService.checkIfAlreadyStarted()"
+                      class="inputfile"
+                      type="file"
+                      nv-file-select
+                      uploader="campaignVoiceMessageUpload"
+                      name="uploadFile"
+                      id="uploadFile"
+                    />
+                    <label
+                      for="uploadFile"
+                      class="btn btn-primary"
+                      ng-disabled="CampaignComposeService.checkIfAlreadyStarted()"
+                      >{{
+                        trans("campaign_compose_compose_step_1_choose_file")
+                      }}</label
+                    >
+                  </div>
+                </div>
+                <!-- <p ng-show="uploadingAudioName" class="uploadingAudioName col-xs-12">{{uploadingAudioName}}</p> -->
+                <div
+                  class="compose_drag_drop_input compose_now voice_container"
+                >
+                  <input
+                    ng-show="false"
+                    readonly="true"
+                    type="text"
+                    class="compose_method2_input"
+                    placeholder="{{
+                      trans('compose_step_1_method_2_input_placeholder')
+                    }}"
+                  />
+                  <div
+                    class="actions_holder"
+                    ng-if="CampaignComposeService.campaignData.uploadetAudioFile"
+                  >
+                    <div
+                      ng-click="slsectAudio(CampaignComposeService.campaignData.uploadetAudioFile)"
+                      class="actions compagin-compose-audio-upload"
+                      ng-class="{'active': CampaignComposeService.campaignData.uploadetAudioFile._id == CampaignComposeService.campaignData.campaign_voice_file_id}"
+                    >
+                      <p class="compose-audio-name">
+                        {{
+                          CampaignComposeService.campaignData.voice_file
+                            .orig_filename
+                            ? CampaignComposeService.campaignData.voice_file
+                                .orig_filename
+                            : uploadingAudioName
+                        }}
+                        {{
+                          CampaignComposeService.campaignData.voice_file
+                            .extension
+                            ? CampaignComposeService.campaignData.voice_file
+                                .extension
+                            : ""
+                        }}
+                      </p>
+                    </div>
+                    <div class="non_select_area">
+                      <span
+                        tooltip-placement="top"
+                        id="audioFilePlay{{
+                          CampaignComposeService.campaignData.uploadetAudioFile
+                            ._id
+                        }}"
+                        ng-class="CampaignComposeService.campaignData.uploadetAudioFile.playButtonClass ? CampaignComposeService.campaignData.uploadetAudioFile.playButtonClass : 'fa-play-circle'"
+                        data-ng-class="{'play': CampaignComposeService.campaignData.uploadetAudioFile._id == CampaignComposeService.campaignData.campaign_voice_file_id}"
+                        uib-tooltip="{{
+                          trans('engaines_campaign_tamplate_play')
+                        }}"
+                        tooltip-trigger="mouseenter"
+                        class="fa"
+                        data-ng-click="playPauseRecordedAudio(CampaignComposeService.campaignData.uploadetAudioFile)"
+                      >
+                      </span>
+                      <audio
+                        ng-show="false"
+                        controls
+                        id="composeTemplateFile{{
+                          CampaignComposeService.campaignData.uploadetAudioFile
+                            ._id
+                        }}"
+                        ng-src="{{
+                          getAudioSource(
+                            CampaignComposeService.campaignData
+                              .uploadetAudioFile
+                          )
+                        }}"
+                      ></audio>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </uib-tab>
+            <uib-tab
+              index="2"
+              disable="!totalTemplatesCount || CampaignComposeService.checkIfAlreadyStarted()"
+              heading="{{
+                trans('campaign_compose_compose_step_1_templates')
+              }} ({{ totalTemplatesCount }})"
+            >
+              <p class="compose_sp">
+                {{ trans("campaign_compose_compose_step_1_voice_message") }}
+              </p>
+              <div class="audio_templates_holder">
+                <div
+                  class="col-xs-12 voice_container"
+                  data-ng-repeat="audioTemplate in audioTemplates track by $index"
+                  id="$index"
+                >
+                  <div class="row">
+                    <div class="audio_template_holder">
+                      <div
+                        ng-class="{'voice':1, 'centered': 1, 'active': audioTemplate._id == CampaignComposeService.campaignData.campaign_voice_file_id,'grey': audioTemplate._id === CampaignComposeService.editingCampaign.campaign_voice_file_id}"
+                        data-ng-click="slsectAudio(audioTemplate)"
+                      >
+                        <span
+                          ng-if="audioTemplate.type === 'TTS'"
+                          class="tts_text"
+                        >
+                          {{ audioTemplate.tts_text }}
+                        </span>
+                        <span
+                          ng-if="audioTemplate.type === 'UPLOADED'"
+                          class="tts_text"
+                        >
+                          {{ audioTemplate.orig_filename }}
+                        </span>
+
+                        <p
+                          class="audio_length"
+                          ng-if="audioTemplate.length < 10"
+                        >
+                          00:0{{ audioTemplate.length }}”
+                        </p>
+                        <p
+                          class="audio_length"
+                          ng-if="audioTemplate.length >= 10 && audioTemplate.length < 60"
+                        >
+                          00:{{ audioTemplate.length }}”
+                        </p>
+                      </div>
+                      <div class="cmp-new-play non_select_area">
+                        <i
+                          class="fa fa-edit"
+                          ng-if="audioTemplate.type === 'TTS'"
+                          ng-click="editAudioTemplate(audioTemplate)"
+                        ></i>
+                        <span
+                          class="fa"
+                          ng-show="!audioTemplate.showAudioSpinner"
+                          ng-class="audioTemplate.playButtonClass ? audioTemplate.playButtonClass : 'fa-play-circle'"
+                          data-ng-class="{'active play': audioTemplate._id == CampaignComposeService.campaignData.campaign_voice_file_id}"
+                          id="audioFilePlay{{ audioTemplate._id }}"
+                          alt="play button"
+                          data-ng-click="playAudio();playPauseRecordedAudio(audioTemplate)"
+                        >
+                        </span>
+                        <span
+                          ng-show="audioTemplate.showAudioSpinner"
+                          class="spinner_holder"
+                        >
+                          <img
+                            class="audio-spinner-size"
+                            src="/assets/callburn/images/images/gray-audio-spinner.svg"
+                          />
+                        </span>
+                        <audio
+                          ng-show="false"
+                          controls
+                          id="composeTemplateFile{{ audioTemplate._id }}"
+                        ></audio>
+                        <!-- src="{{trustSrc(audioTemplate.auido_url)}}" -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <audio
+                src="/assets/callburn/audios/alert.mp3"
+                muted="true"
+                id="aaa"
+              ></audio>
+              <div class="clearfix"></div>
+              <div class="row">
+                <div class="col-xs-12 centerd">
+                  <div class="row" id="paginationStep1">
+                    <uib-pagination
+                      ng-if="isLoaded && audioTemplatesCount >= 30"
+                      total-items="audioTemplatesCount"
+                      items-per-page="30"
+                      ng-model="page"
+                      max-size="3"
+                      class="pagination-sm"
+                      boundary-link-numbers="true"
+                      ng-change="paginateAudio(page - 1)"
+                      next-text="{{ trans('next') }}"
+                      previous-text="{{ trans('back') }}"
+                    ></uib-pagination>
+                  </div>
+                </div>
+              </div>
+            </uib-tab>
+          </uib-tabset>
+        </div>
+        <div class="right_side">
+          <div ng-disabled="selectedType === 'sms'" class="inters_holder">
+            <h1 class="small_title">
+              {{ trans("campaign_compose_compose_step_3_functionalities") }}
+            </h1>
+            <div
+              class="box_holder"
+              ng-class="{disabled: CampaignComposeService.checkIfAlreadyStarted()}"
+            >
+              <div
+                class="box"
+                ng-class="{active: CampaignComposeService.replayDigit.onOff }"
+              >
+                <div class="callburn-checkbox-white">
+                  <input
+                    type="checkbox"
+                    id="test4"
+                    ng-disabled="CampaignComposeService.checkIfAlreadyStarted()"
+                    data-ng-model="CampaignComposeService.replayDigit.onOff"
+                    data-ng-click="showInteractionModal(CampaignComposeService.replayDigit.onOff)"
+                  />
+                  <label for="test4"> </label>
+                </div>
+                <div class="content">
+                  <div class="left">
+                    <div class="top">
+                      <img
+                        ng-show="!CampaignComposeService.replayDigit.onOff"
+                        src="/assets/images/compose/replay.svg"
+                      />
+                      <img
+                        ng-show="CampaignComposeService.replayDigit.onOff "
+                        src="/assets/images/compose/replay-white.svg"
+                      />
+                      <h1>
+                        {{
+                          trans(
+                            "campaign_compose_compose_step_3_replay_voice_message"
+                          )
+                        }}
+                      </h1>
+                    </div>
+                    <h2>{{ trans("replay_text") }}</h2>
+                  </div>
+                  <div class="right">
+                    <sel-dig
+                      ng-if="CampaignComposeService.replayDigit.onOff"
+                      class="callburn_blue choosen_digit_status"
+                    >
+                      <h1>{{ trans("key") }}</h1>
+                      <h1>
+                        {{ CampaignComposeService.campaignData.replay_digit }}
+                      </h1>
+                    </sel-dig>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="box"
+                ng-class="{active: CampaignComposeService.transferDigit.onOff }"
+              >
+                <div class="callburn-checkbox-white">
+                  <input
+                    type="checkbox"
+                    id="test5"
+                    ng-disabled="CampaignComposeService.checkIfAlreadyStarted()"
+                    data-ng-model="CampaignComposeService.transferDigit.onOff"
+                    ng-checked="CampaignComposeService.transferDigit.onOff"
+                    data-ng-click="showTransferModal(CampaignComposeService.transferDigit.onOff)"
+                  />
+                  <label for="test5"></label>
+                </div>
+                <div class="content">
+                  <div class="left">
+                    <div class="top">
+                      <img
+                        ng-show="!CampaignComposeService.transferDigit.onOff"
+                        src="/assets/images/compose/transfer.svg"
+                      />
+                      <img
+                        ng-show="CampaignComposeService.transferDigit.onOff "
+                        src="/assets/images/compose/transfer-white.svg"
+                      />
+                      <h1>
+                        {{ trans("campaign_compose_compose_step_3_call_live") }}
+                      </h1>
+                    </div>
+                    <h2>{{ trans("transfer_text") }}</h2>
+                  </div>
+                  <div class="right">
+                    <sel-dig
+                      ng-if=" CampaignComposeService.transferDigit.onOff"
+                      class="callburn_blue choosen_digit_status"
+                    >
+                      <h1>{{ trans("key") }}</h1>
+                      <h1>
+                        {{ CampaignComposeService.campaignData.transfer_digit }}
+                      </h1>
+                    </sel-dig>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="box"
+                ng-class="{active: CampaignComposeService.callbackDigit.onOff }"
+              >
+                <div class="callburn-checkbox-white">
+                  <input
+                    type="checkbox"
+                    id="test6"
+                    ng-disabled="CampaignComposeService.checkIfAlreadyStarted()"
+                    data-ng-model="CampaignComposeService.callbackDigit.onOff"
+                    ng-chcked="CampaignComposeService.callbackDigit.onOff"
+                    data-ng-click=" showComposeActivateCallbackModal(CampaignComposeService.callbackDigit.onOff)"
+                  />
+                  <label for="test6"></label>
+                </div>
+                <div class="content">
+                  <div class="left">
+                    <div class="top">
+                      <img
+                        ng-show="!CampaignComposeService.callbackDigit.onOff"
+                        src="/assets/images/compose/callback.svg"
+                      />
+                      <img
+                        ng-show="CampaignComposeService.callbackDigit.onOff "
+                        src="/assets/images/compose/callback-white.svg"
+                      />
+                      <h1>
+                        {{
+                          trans("campaign_compose_compose_step_3_call_me_back")
+                        }}
+                      </h1>
+                    </div>
+                    <h2>{{ trans("callback_text") }}</h2>
+                  </div>
+                  <div class="right">
+                    <sel-dig
+                      ng-if=" CampaignComposeService.callbackDigit.onOff"
+                      class="callburn_blue choosen_digit_status"
+                    >
+                      <h1>{{ trans("key") }}</h1>
+                      <h1>
+                        {{ CampaignComposeService.campaignData.callback_digit }}
+                      </h1>
+                    </sel-dig>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="box"
+                ng-class="{active: CampaignComposeService.doNotCallDigit.onOff }"
+              >
+                <div class="callburn-checkbox-white">
+                  <input
+                    type="checkbox"
+                    id="test7"
+                    ng-disabled="CampaignComposeService.checkIfAlreadyStarted()"
+                    data-ng-model="CampaignComposeService.doNotCallDigit.onOff"
+                    ng-chcked="CampaignComposeService.doNotCallDigit.onOff"
+                    data-ng-click=" showDoNotCallModal(CampaignComposeService.doNotCallDigit.onOff)"
+                  />
+                  <label for="test7"></label>
+                </div>
+                <div class="content">
+                  <div class="left">
+                    <div class="top">
+                      <img
+                        ng-show="!CampaignComposeService.doNotCallDigit.onOff"
+                        src="/assets/images/compose/blacklist.svg"
+                      />
+                      <img
+                        ng-show="CampaignComposeService.doNotCallDigit.onOff"
+                        src="/assets/images/compose/blacklist-white.svg"
+                      />
+                      <h1>
+                        {{
+                          trans("campaign_compose_compose_step_3_blacklist_me")
+                        }}
+                      </h1>
+                    </div>
+                    <h2>{{ trans("blacklist_text") }}</h2>
+                  </div>
+                  <div class="right">
+                    <sel-dig
+                      ng-if=" CampaignComposeService.doNotCallDigit.onOff"
+                      class="callburn_blue choosen_digit_status"
+                    >
+                      <h1>{{ trans("key") }}</h1>
+                      <h1>
+                        {{
+                          CampaignComposeService.campaignData.do_not_call_digit
+                        }}
+                      </h1>
+                    </sel-dig>
+                  </div>
+                </div>
+              </div>
+              <div class="box playback">
+                <div class="left">
+                  <h1 class="">{{ trans("playback_count") }}</h1>
+                  <h2>{{ trans("playback_text") }}</h2>
+                </div>
+                <div
+                  ng-class="{'disabled': CampaignComposeService.checkIfAlreadyStarted()}"
+                  class="item_holder"
+                >
+                  <div
+                    class="call_item"
+                    data-ng-class="{'active':getPlaybackCount(1)}"
+                    ng-click="changePlaybackCount(1)"
+                  >
+                    1x
+                  </div>
+                  <div
+                    class="call_item"
+                    data-ng-class="{'active':getPlaybackCount(2)}"
+                    ng-click="changePlaybackCount(2)"
+                  >
+                    2x
+                  </div>
+                  <div
+                    class="call_item"
+                    data-ng-class="{'active':getPlaybackCount(3)}"
+                    ng-click="changePlaybackCount(3)"
+                  >
+                    3x
+                  </div>
+                  <div
+                    class="call_item"
+                    data-ng-class="{'active':getPlaybackCount(4)}"
+                    ng-click="changePlaybackCount(4)"
+                  >
+                    4x
+                  </div>
+                  <div
+                    class="call_item"
+                    data-ng-class="{'active':getPlaybackCount(5)}"
+                    ng-click="changePlaybackCount(5)"
+                  >
+                    5x
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ************** -->
+    <h1
+      class="main_title"
+      ng-if="currentUser.numbers[0].phone_number && (selectedType === 'vmSms' || selectedType === 'sms')"
+    >
+      <!-- {{selectedType == 'sms' ? trans('create_sms_content') : trans('create_message_content')}}</h1> -->
+      {{
+        selectedType == "vm" || selectedType == "vmSms"
+          ? trans("create_message_content")
+          : ""
+      }}
+    </h1>
+    <div
+      class="campaign_compose_compose_step_1-tab type_vmSms"
+      ng-if="currentUser.numbers[0].phone_number && selectedType === 'vmSms'"
+    >
+      <div class="flex_row">
+        <div class="left_side" id="vm_err" ng-class="{error_border: fileIdErr}">
+          <!-- <h1 class="small_title">{{trans('left_vm_title')}}</h1> -->
+          <uib-tabset active="audioActiveTab" type="pills">
+            <uib-tab
+              select="selectedTab()"
+              disable="CampaignComposeService.checkIfAlreadyStarted()"
+              index="0"
+              heading="{{
+                trans('campaign_compose_compose_step_1_tts_technology')
+              }}"
+            >
+              <p class="compose_sp">
+                {{ trans("compose_step_1_method_1_text") }}
+              </p>
+              <div class="compose_method_container">
+                <div class="compose_method click_item">
+                  <div
+                    class="choose_lang_and_voice_container select-second-type step-1-lang-voice"
+                  >
+                    <ui-select
+                      class=""
+                      ng-model="ttsData.language"
+                      theme="bootstrap"
+                      id="_id"
+                      title="Choose an address"
+                    >
+                      <ui-select-match
+                        placeholder="{{
+                          trans('compose_step_1_method_1_select_default')
+                        }}"
+                      >
+                        {{ $select.selected.selectView }}
+                      </ui-select-match>
+                      <ui-select-choices
+                        repeat="language.ttsEngine as language in CampaignComposeService.ttsLanguages | filter: $select.search track by $index"
+                        ng-click="keepObject ? valueSelected(option,option,$index) : valueSelected(option[showAttr],option[keepAttr],$index)"
+                      >
+                        <div
+                          ng-bind-html="language.selectView | highlight: $select.search"
+                        ></div>
+                        <div
+                          class="ng-hide"
+                          ng-bind-html="language.ttsEngine | highlight: $select.search"
+                        ></div>
+                        <div
+                          class="ng-hide"
+                          ng-bind-html="language.languageName | highlight: $select.search"
+                        ></div>
+                      </ui-select-choices>
+                    </ui-select>
+                  </div>
+                  <textarea
+                    ng-model="ttsData.text"
+                    class="compose_method1_textarea"
+                    placeholder="{{
+                      trans('compose_step_1_method_1_placeholder')
+                    }}"
+                    ng-blur="!ttsData.language || !ttsData.text || CampaignComposeService.checkIfAlreadyStarted() ? null : editing ? editAudio(editingTemplate) : createAudioFromTextForVoice()"
+                  >
+                  </textarea>
+                  <button
+                    class="btn btn-success"
+                    ng-disabled="!ttsData.language || !ttsData.text || CampaignComposeService.checkIfAlreadyStarted()"
+                    data-ng-click="editing ? editAudio(editingTemplate) : createAudioFromTextForVoice()"
+                  >
+                    {{ trans("compose_step_1_method_1_compose") }}
+                  </button>
+                </div>
+                <span class="characters_count"
+                  >{{ trans("compose_step_1_method_1_characters_count") }}:
+                  {{ ttsData.text.length ? ttsData.text.length : 0 }}
+                </span>
+              </div>
+              <div
+                class="col-xs-12 custom_vm_holder"
+                data-ng-if="lastFileIsUploaded"
+              >
+                <div class="voice_container">
+                  <div
+                    ng-repeat="file in audioFiles track by $index"
+                    class="file_holder"
+                  >
+                    <div
+                      ng-class="{'voice':1, 'centered': 1,'active': file._id == CampaignComposeService.campaignData.campaign_voice_file_id}"
+                      ng-click="slsectAudio(file)"
+                      id="selectedAudio{{ file._id }}"
+                      uib-tooltip="{{ file.tts_text }}"
+                    >
+                      <p>{{ file.tts_text }}</p>
+                      <p class="audio_length" ng-if="file.length < 10">
+                        00:0{{ file.length }}”
+                      </p>
+                      <p
+                        class="audio_length"
+                        ng-if="file.length >= 10 && file.length < 60"
+                      >
+                        00:{{ file.length }}”
+                      </p>
+                    </div>
+                    <div class="non_select_area">
+                      <div class="cmp-new-play">
+                        <span
+                          class="fa"
+                          id="audioFilePlay{{ file._id }}"
+                          alt="play button"
+                          ng-class="file.playButtonClass ? file.playButtonClass : 'fa-play-circle'"
+                          data-ng-class="{'active play': file._id == CampaignComposeService.campaignData.campaign_voice_file_id}"
+                          data-ng-click="playPauseRecordedAudio(file)"
+                        ></span>
+                        <audio
+                          ng-show="false"
+                          controls
+                          id="composeTemplateFile{{ file._id }}"
+                          ng-src="{{ getAudioSource(file) }}"
+                        ></audio>
+                      </div>
+                      <i
+                        class="fa fa-times-circle pointer"
+                        ng-click="deleteAudio(file)"
+                      ></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </uib-tab>
+            <uib-tab
+              index="1"
+              disable="CampaignComposeService.checkIfAlreadyStarted()"
+              heading="{{
+                trans('campaign_compose_compose_step_1_upload_ffile')
+              }}"
+            >
+              <p class="compose_sp">
+                {{ trans("campaign_compose_compose_step_1_upload_an_audio") }}
+              </p>
+              <div
+                class="col-xs-12 file_uploader_container {{
+                  CampaignComposeService.campaignData.uploadetAudioFile
+                    ? 'file_uploader_container_size'
+                    : ''
+                }} compose_step1_audio_upload"
+              >
+                <div
+                  nv-file-drop
+                  uploader="campaignVoiceMessageUpload"
+                  class="drag_drop"
+                >
+                  <p ng-show="!uploadingAudioName" class="text-center">
+                    {{ trans("campaign_compose_compose_step_1_move_your_mp3") }}
+                  </p>
+                  <div class="">
+                    <input
+                      ng-disabled="CampaignComposeService.checkIfAlreadyStarted()"
+                      class="inputfile"
+                      type="file"
+                      nv-file-select
+                      uploader="campaignVoiceMessageUpload"
+                      name="uploadFile"
+                      id="uploadFile"
+                    />
+                    <label
+                      for="uploadFile"
+                      class="btn btn-primary"
+                      ng-disabled="CampaignComposeService.checkIfAlreadyStarted()"
+                      >{{
+                        trans("campaign_compose_compose_step_1_choose_file")
+                      }}</label
+                    >
+                  </div>
+                </div>
+                <!-- <p ng-show="uploadingAudioName" class="uploadingAudioName col-xs-12">{{uploadingAudioName}}</p> -->
+                <div
+                  class="compose_drag_drop_input compose_now voice_container"
+                >
+                  <input
+                    ng-show="false"
+                    readonly="true"
+                    type="text"
+                    class="compose_method2_input"
+                    placeholder="{{
+                      trans('compose_step_1_method_2_input_placeholder')
+                    }}"
+                  />
+                  <div
+                    class="actions_holder"
+                    ng-if="CampaignComposeService.campaignData.uploadetAudioFile"
+                  >
+                    <div
+                      ng-click="slsectAudio(CampaignComposeService.campaignData.uploadetAudioFile)"
+                      class="actions compagin-compose-audio-upload"
+                      ng-class="{'active': CampaignComposeService.campaignData.uploadetAudioFile._id == CampaignComposeService.campaignData.campaign_voice_file_id}"
+                    >
+                      <p class="compose-audio-name">
+                        {{
+                          CampaignComposeService.campaignData.voice_file
+                            .orig_filename
+                            ? CampaignComposeService.campaignData.voice_file
+                                .orig_filename
+                            : uploadingAudioName
+                        }}
+                        {{
+                          CampaignComposeService.campaignData.voice_file
+                            .extension
+                            ? CampaignComposeService.campaignData.voice_file
+                                .extension
+                            : ""
+                        }}
+                      </p>
+                    </div>
+                    <div class="non_select_area">
+                      <span
+                        tooltip-placement="top"
+                        id="audioFilePlay{{
+                          CampaignComposeService.campaignData.uploadetAudioFile
+                            ._id
+                        }}"
+                        ng-class="CampaignComposeService.campaignData.uploadetAudioFile.playButtonClass ? CampaignComposeService.campaignData.uploadetAudioFile.playButtonClass : 'fa-play-circle'"
+                        data-ng-class="{'play': CampaignComposeService.campaignData.uploadetAudioFile._id == CampaignComposeService.campaignData.campaign_voice_file_id}"
+                        uib-tooltip="{{
+                          trans('engaines_campaign_tamplate_play')
+                        }}"
+                        tooltip-trigger="mouseenter"
+                        class="fa"
+                        data-ng-click="playPauseRecordedAudio(CampaignComposeService.campaignData.uploadetAudioFile)"
+                      >
+                      </span>
+                      <audio
+                        ng-show="false"
+                        controls
+                        id="composeTemplateFile{{
+                          CampaignComposeService.campaignData.uploadetAudioFile
+                            ._id
+                        }}"
+                        ng-src="{{
+                          getAudioSource(
+                            CampaignComposeService.campaignData
+                              .uploadetAudioFile
+                          )
+                        }}"
+                      ></audio>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </uib-tab>
+            <uib-tab
+              index="2"
+              disable="!totalTemplatesCount || CampaignComposeService.checkIfAlreadyStarted()"
+              heading="{{
+                trans('campaign_compose_compose_step_1_templates')
+              }} ({{ totalTemplatesCount }})"
+            >
+              <p class="compose_sp">
+                {{ trans("campaign_compose_compose_step_1_voice_message") }}
+              </p>
+              <div class="audio_templates_holder">
+                <div
+                  class="col-xs-12 voice_container"
+                  data-ng-repeat="audioTemplate in audioTemplates track by $index"
+                  id="$index"
+                >
+                  <div class="row">
+                    <div class="audio_template_holder">
+                      <div
+                        ng-class="{'voice':1, 'centered': 1, 'active': audioTemplate._id == CampaignComposeService.campaignData.campaign_voice_file_id}"
+                        data-ng-click="slsectAudio(audioTemplate)"
+                        uib-tooltip="{{ audioTemplate.tts_text }}"
+                        tooltip-placement="bottom"
+                      >
+                        <span
+                          ng-if="audioTemplate.type === 'TTS'"
+                          class="tts_text"
+                        >
+                          {{ audioTemplate.tts_text | limitTo: 25
+                          }}{{
+                            audioTemplate.tts_text.length > 25 ? "..." : ""
+                          }}
+                        </span>
+                        <span
+                          ng-if="audioTemplate.type === 'UPLOADED'"
+                          class="tts_text"
+                        >
+                          {{ audioTemplate.orig_filename }}
+                        </span>
+
+                        <p
+                          class="audio_length"
+                          ng-if="audioTemplate.length < 10"
+                        >
+                          00:0{{ audioTemplate.length }}”
+                        </p>
+                        <p
+                          class="audio_length"
+                          ng-if="audioTemplate.length >= 10 && audioTemplate.length < 60"
+                        >
+                          00:{{ audioTemplate.length }}”
+                        </p>
+                      </div>
+                      <div class="cmp-new-play non_select_area">
+                        <i
+                          class="fa fa-edit"
+                          ng-if="audioTemplate.type === 'TTS'"
+                          ng-click="editAudioTemplate(audioTemplate)"
+                        ></i>
+                        <span
+                          class="fa"
+                          ng-show="!audioTemplate.showAudioSpinner"
+                          ng-class="audioTemplate.playButtonClass ? audioTemplate.playButtonClass : 'fa-play-circle'"
+                          data-ng-class="{'active play': audioTemplate._id == CampaignComposeService.campaignData.campaign_voice_file_id}"
+                          id="audioFilePlay{{ audioTemplate._id }}"
+                          alt="play button"
+                          data-ng-click="playAudio();playPauseRecordedAudio(audioTemplate)"
+                        >
+                        </span>
+                        <span
+                          ng-show="audioTemplate.showAudioSpinner"
+                          class="spinner_holder"
+                        >
+                          <img
+                            class="audio-spinner-size"
+                            src="/assets/callburn/images/images/gray-audio-spinner.svg"
+                          />
+                        </span>
+                        <audio
+                          ng-show="false"
+                          controls
+                          id="composeTemplateFile{{ audioTemplate._id }}"
+                        ></audio>
+                        <!-- src="{{trustSrc(audioTemplate.auido_url)}}" -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <audio
+                src="/assets/callburn/audios/alert.mp3"
+                muted="true"
+                id="aaa"
+              ></audio>
+              <div class="centerd">
+                <div class="" id="paginationStep1">
+                  <uib-pagination
+                    ng-if="isLoaded && audioTemplatesCount >= 30"
+                    total-items="audioTemplatesCount"
+                    items-per-page="30"
+                    ng-model="page"
+                    max-size="3"
+                    class="pagination-sm"
+                    boundary-link-numbers="true"
+                    ng-change="paginateAudio(page - 1)"
+                    next-text="{{ trans('next') }}"
+                    previous-text="{{ trans('back') }}"
+                  ></uib-pagination>
+                </div>
+              </div>
+            </uib-tab>
+          </uib-tabset>
+        </div>
+        <div class="right_side">
+          <div ng-disabled="selectedType === 'sms'" class="inters_holder">
+            <h1 class="small_title">
+              {{ trans("campaign_compose_compose_step_3_functionalities") }}
+            </h1>
+            <div
+              class="box_holder"
+              ng-class="{disabled: CampaignComposeService.checkIfAlreadyStarted()}"
+            >
+              <div
+                class="box"
+                ng-class="{active: CampaignComposeService.replayDigit.onOff }"
+              >
+                <div class="callburn-checkbox-white">
+                  <input
+                    type="checkbox"
+                    id="test4"
+                    ng-disabled="CampaignComposeService.checkIfAlreadyStarted()"
+                    data-ng-model="CampaignComposeService.replayDigit.onOff"
+                    data-ng-click="showInteractionModal(CampaignComposeService.replayDigit.onOff)"
+                  />
+                  <label for="test4"> </label>
+                </div>
+                <div class="content">
+                  <div class="left">
+                    <div class="top">
+                      <img
+                        ng-show="!CampaignComposeService.replayDigit.onOff"
+                        src="/assets/images/compose/replay.svg"
+                      />
+                      <img
+                        ng-show="CampaignComposeService.replayDigit.onOff "
+                        src="/assets/images/compose/replay-white.svg"
+                      />
+                      <h1>
+                        {{
+                          trans(
+                            "campaign_compose_compose_step_3_replay_voice_message"
+                          )
+                        }}
+                      </h1>
+                    </div>
+                    <h2>{{ trans("replay_text") }}</h2>
+                  </div>
+                  <div class="right">
+                    <sel-dig
+                      ng-if=" CampaignComposeService.replayDigit.onOff"
+                      class="callburn_blue choosen_digit_status"
+                    >
+                      <h1>{{ trans("key") }}</h1>
+                      <h1>
+                        {{ CampaignComposeService.campaignData.replay_digit }}
+                      </h1>
+                    </sel-dig>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="box"
+                ng-class="{active: CampaignComposeService.transferDigit.onOff }"
+              >
+                <div class="callburn-checkbox-white">
+                  <input
+                    type="checkbox"
+                    id="test5"
+                    ng-disabled="CampaignComposeService.checkIfAlreadyStarted()"
+                    data-ng-model="CampaignComposeService.transferDigit.onOff"
+                    ng-checked="CampaignComposeService.transferDigit.onOff"
+                    data-ng-click="showTransferModal(CampaignComposeService.transferDigit.onOff)"
+                  />
+                  <label for="test5"></label>
+                </div>
+                <div class="content">
+                  <div class="left">
+                    <div class="top">
+                      <img
+                        ng-show="!CampaignComposeService.transferDigit.onOff"
+                        src="/assets/images/compose/transfer.svg"
+                      />
+                      <img
+                        ng-show="CampaignComposeService.transferDigit.onOff "
+                        src="/assets/images/compose/transfer-white.svg"
+                      />
+                      <h1>
+                        {{ trans("campaign_compose_compose_step_3_call_live") }}
+                      </h1>
+                    </div>
+                    <h2>{{ trans("transfer_text") }}</h2>
+                  </div>
+                  <div class="right">
+                    <sel-dig
+                      ng-if=" CampaignComposeService.transferDigit.onOff"
+                      class="callburn_blue choosen_digit_status"
+                    >
+                      <h1>{{ trans("key") }}</h1>
+                      <h1>
+                        {{ CampaignComposeService.campaignData.transfer_digit }}
+                      </h1>
+                    </sel-dig>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="box"
+                ng-class="{active: CampaignComposeService.callbackDigit.onOff}"
+              >
+                <div class="callburn-checkbox-white">
+                  <input
+                    type="checkbox"
+                    id="test6"
+                    ng-disabled="CampaignComposeService.checkIfAlreadyStarted()"
+                    data-ng-model="CampaignComposeService.callbackDigit.onOff"
+                    ng-chcked="CampaignComposeService.callbackDigit.onOff"
+                    data-ng-click=" showComposeActivateCallbackModal(CampaignComposeService.callbackDigit.onOff)"
+                  />
+                  <label for="test6"></label>
+                </div>
+                <div class="content">
+                  <div class="left">
+                    <div class="top">
+                      <img
+                        ng-show="!CampaignComposeService.callbackDigit.onOff"
+                        src="/assets/images/compose/callback.svg"
+                      />
+                      <img
+                        ng-show="CampaignComposeService.callbackDigit.onOff "
+                        src="/assets/images/compose/callback-white.svg"
+                      />
+                      <h1>
+                        {{
+                          trans("campaign_compose_compose_step_3_call_me_back")
+                        }}
+                      </h1>
+                    </div>
+                    <h2>{{ trans("callback_text") }}</h2>
+                  </div>
+                  <div class="right">
+                    <sel-dig
+                      ng-if="CampaignComposeService.callbackDigit.onOff"
+                      class="callburn_blue choosen_digit_status"
+                    >
+                      <h1>{{ trans("key") }}</h1>
+                      <h1>
+                        {{ CampaignComposeService.campaignData.callback_digit }}
+                      </h1>
+                    </sel-dig>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="box"
+                ng-class="{active: CampaignComposeService.doNotCallDigit.onOff}"
+              >
+                <div class="callburn-checkbox-white">
+                  <input
+                    type="checkbox"
+                    id="test7"
+                    ng-disabled="CampaignComposeService.checkIfAlreadyStarted()"
+                    data-ng-model="CampaignComposeService.doNotCallDigit.onOff"
+                    ng-chcked="CampaignComposeService.doNotCallDigit.onOff"
+                    data-ng-click=" showDoNotCallModal(CampaignComposeService.doNotCallDigit.onOff)"
+                  />
+                  <label for="test7"></label>
+                </div>
+                <div class="content">
+                  <div class="left">
+                    <div class="top">
+                      <img
+                        ng-show="!CampaignComposeService.doNotCallDigit.onOff"
+                        src="/assets/images/compose/blacklist.svg"
+                      />
+                      <img
+                        ng-show="CampaignComposeService.doNotCallDigit.onOff"
+                        src="/assets/images/compose/blacklist-white.svg"
+                      />
+                      <h1>
+                        {{
+                          trans("campaign_compose_compose_step_3_blacklist_me")
+                        }}
+                      </h1>
+                    </div>
+                    <h2>{{ trans("blacklist_text") }}</h2>
+                  </div>
+                  <div class="right">
+                    <sel-dig
+                      ng-if=" CampaignComposeService.doNotCallDigit.onOff"
+                      class="callburn_blue choosen_digit_status"
+                    >
+                      <h1>{{ trans("key") }}</h1>
+                      <h1>
+                        {{
+                          CampaignComposeService.campaignData.do_not_call_digit
+                        }}
+                      </h1>
+                    </sel-dig>
+                  </div>
+                </div>
+              </div>
+              <div class="box playback">
+                <div class="left">
+                  <h1 class="">{{ trans("playback_count") }}</h1>
+                  <h2>{{ trans("playback_text") }}</h2>
+                </div>
+                <div
+                  ng-class="{'disabled': CampaignComposeService.checkIfAlreadyStarted()}"
+                  class="item_holder"
+                >
+                  <div
+                    class="call_item"
+                    data-ng-class="{'active':getPlaybackCount(1)}"
+                    ng-click="changePlaybackCount(1)"
+                  >
+                    1x
+                  </div>
+                  <div
+                    class="call_item"
+                    data-ng-class="{'active':getPlaybackCount(2)}"
+                    ng-click="changePlaybackCount(2)"
+                  >
+                    2x
+                  </div>
+                  <div
+                    class="call_item"
+                    data-ng-class="{'active':getPlaybackCount(3)}"
+                    ng-click="changePlaybackCount(3)"
+                  >
+                    3x
+                  </div>
+                  <div
+                    class="call_item"
+                    data-ng-class="{'active':getPlaybackCount(4)}"
+                    ng-click="changePlaybackCount(4)"
+                  >
+                    4x
+                  </div>
+                  <div
+                    class="call_item"
+                    data-ng-class="{'active':getPlaybackCount(5)}"
+                    ng-click="changePlaybackCount(5)"
+                  >
+                    5x
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 sms_side">
+        <h1 class="main_title">{{ trans("sms") }}</h1>
+        <uib-tabset active="" type="pills">
+          <uib-tab
+            disable="CampaignComposeService.checkIfAlreadyStarted()"
+            heading="{{
+              trans('campaign_compose_compose_step_1_tts_technology')
+            }}"
+          >
+            <div class="same_as_holder">
+              <div class="callburn-checkbox-white">
+                <input
+                  ng-disabled="disableSmsText"
+                  ng-class="{disabled: disableSmsText}"
+                  id="sameAs"
+                  type="checkbox"
+                  ng-checked="CampaignComposeService.campaignData.same_sms_text"
+                  ng-click="disableSmsText ? null : toggleSameAs()"
+                />
+                <label for="sameAs">
+                  <span>{{ trans("checkbox_same_as_vm") }}</span>
+                </label>
+              </div>
+              <div class="same_as" ng-if="CampaignComposeService.campaignData.same_sms_text">
+                <h1>{{ trans("same_as_vm") }}</h1>
+              </div>
+              <div
+                class="sms_text click_item"
+                id="sms_err"
+                ng-class="{error_border: smsTextErr}"
+                ng-if="!CampaignComposeService.campaignData.same_sms_text"
+              >
+                <textarea
+                  maxlength="960"
+                  name="sms"
+                  id="sms"
+                  class="compose_method1_textarea"
+                  ng-model="CampaignComposeService.campaignData.sms_text"
+                  placeholder="{{
+                    trans('compose_step_1_method_1_placeholder')
+                  }}"
+                  ng-change="calcSmsText()"
+                  ng-blur="goToStep3()"
+                ></textarea>
+                <span class="characters_count">
+                  {{ trans("compose_step_1_method_1_characters_count") }} :
+                  {{
+                    CampaignComposeService.campaignData.sms_text.length
+                      ? CampaignComposeService.campaignData.sms_text.length +
+                        calcSmsText()
+                      : 0
+                  }}
+                </span>
+              </div>
+            </div>
+            <div class="sms_phone">
+              <div class="phone">
+                <div class="content">
+                  <div class="top">
+                    <h1>
+                      {{
+                        CampaignComposeService.campaignData.caller_id
+                          ? "+" + CampaignComposeService.campaignData.caller_id
+                          : trans("from_your_number")
+                      }}
+                    </h1>
+                  </div>
+                  <!-- <div class="main_content"> -->
+                      <pre class="main_content">{{CampaignComposeService.campaignData.sms_text}}</pre> <!-- || trans("textarea_text_in_phone") -->
+                      <!-- <h2 id="smsData">
+                        {{
+                          CampaignComposeService.campaignData.sms_text ||
+                            trans("textarea_text_in_phone")
+                        }}
+                      </h2> -->
+                    <!-- </div> -->
+                  <img src="/assets/images/compose/sms_phone.png" alt="" />
+                </div>
+              </div>
+            </div>
+          </uib-tab>
+          <uib-tab
+            disable="CampaignComposeService.checkIfAlreadyStarted()"
+            heading="{{ trans('campaign_compose_compose_step_1_templates') }}"
+          >
+            <div class="sms_templates_holder">
+              <div
+                class="voice_container"
+                uib-tooltip="{{ sms.tts_text }}"
+                ng-repeat="sms in smsTemplates track by $index"
+                ng-click="selectSmsTemplate(sms.tts_text)"
+              >
+                <div class="audio_template_holder">
+                  <div
+                    ng-class="{active: selectedSmsText == sms.tts_text}"
+                    class="voice centered"
+                  >
+                    {{ sms.tts_text }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="sms_phone">
+                <div class="phone">
+                  <div class="content">
+                    <div class="top">
+                      <h1>
+                        {{
+                          CampaignComposeService.campaignData.caller_id
+                            ? "+" + CampaignComposeService.campaignData.caller_id
+                            : trans("from_your_number")
+                        }}
+                      </h1>
+                    </div>
+                    <!-- <div class="main_content"> -->
+                        <pre class="main_content">{{CampaignComposeService.campaignData.sms_text}}</pre> <!-- || trans("textarea_text_in_phone") -->
+                        <!-- <h2 id="smsData">
+                          {{
+                            CampaignComposeService.campaignData.sms_text ||
+                              trans("textarea_text_in_phone")
+                          }}
+                        </h2> -->
+                      <!-- </div> -->
+                    <img src="/assets/images/compose/sms_phone.png" alt="" />
+                  </div>
+                </div>
+              </div>
+          </uib-tab>
+        </uib-tabset>
+      </div>
+    </div>
+    <div
+      class="campaign_compose_compose_step_1-tab type_vmSms type_sms"
+      ng-if="currentUser.numbers[0].phone_number && selectedType === 'sms'"
+    >
+      <div class="right sms_side">
+        <h1 class="small_title">{{ trans("sms") }}</h1>
+        <uib-tabset active="" type="pills">
+          <uib-tab
+            disable="CampaignComposeService.checkIfAlreadyStarted()"
+            heading="{{
+              trans('campaign_compose_compose_step_1_tts_technology')
+            }}"
+          >
+            <div class="same_as_holder">
+              <div
+                class="sms_text click_item"
+                id="sms_err"
+                ng-class="{error_border: smsTextErr}"
+              >
+                <textarea
+                  maxlength="960"
+                  name="sms"
+                  id="sms"
+                  class="compose_method1_textarea"
+                  ng-model="CampaignComposeService.campaignData.sms_text"
+                  placeholder="{{
+                    trans('compose_step_1_method_1_placeholder')
+                  }}"
+                  ng-change="calcSmsText()"
+                  ng-blur="goToStep3()"
+                >
+                </textarea>
+                <span class="characters_count">
+                  {{ trans("compose_step_1_method_1_characters_count") }} :
+                  {{
+                    CampaignComposeService.campaignData.sms_text.length
+                      ? CampaignComposeService.campaignData.sms_text.length +
+                        calcSmsText()
+                      : 0
+                  }}
+                </span>
+              </div>
+            </div>
+            <div class="sms_phone">
+              <div class="phone">
+                <div class="content">
+                  <div class="top">
+                    <h1>
+                      {{
+                        CampaignComposeService.campaignData.caller_id
+                          ? "+" + CampaignComposeService.campaignData.caller_id
+                          : trans("from_your_number")
+                      }}
+                    </h1>
+                  </div>
+                  <!-- <div class="main_content"> -->
+                      <pre class="main_content">{{CampaignComposeService.campaignData.sms_text}}</pre> <!-- || trans("textarea_text_in_phone") -->
+                      <!-- <h2 id="smsData">
+                        {{
+                          CampaignComposeService.campaignData.sms_text ||
+                            trans("textarea_text_in_phone")
+                        }}
+                      </h2> -->
+                    <!-- </div> -->
+                  <img src="/assets/images/compose/sms_phone.png" alt="" />
+                </div>
+              </div>
+            </div>
+          </uib-tab>
+          <uib-tab
+            disable="CampaignComposeService.checkIfAlreadyStarted()"
+            heading="{{ trans('campaign_compose_compose_step_1_templates') }}"
+          >
+            <div class="sms_templates_holder">
+              <div
+                class="voice_container"
+                uib-tooltip="{{ sms.tts_text }}"
+                ng-repeat="sms in smsTemplates track by $index"
+                ng-click="selectSmsTemplate(sms.tts_text)"
+              >
+                <div class="audio_template_holder">
+                  <div
+                    ng-class="{active: selectedSmsText == sms.tts_text}"
+                    class="voice centered"
+                  >
+                    {{ sms.tts_text }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="sms_phone">
+              <div class="phone">
+                <div class="content">
+                  <div class="top">
+                    <h1>
+                      {{
+                        CampaignComposeService.campaignData.caller_id
+                          ? "+" + CampaignComposeService.campaignData.caller_id
+                          : trans("from_your_number")
+                      }}
+                    </h1>
+                  </div>
+                  <!-- <div class="main_content"> -->
+                      <pre class="main_content">{{CampaignComposeService.campaignData.sms_text}}</pre> <!-- || trans("textarea_text_in_phone") -->
+                      <!-- <h2 id="smsData">
+                        {{
+                          CampaignComposeService.campaignData.sms_text ||
+                            trans("textarea_text_in_phone")
+                        }}
+                      </h2> -->
+                    <!-- </div> -->
+                  <img src="/assets/images/compose/sms_phone.png" alt="" />
+                </div>
+              </div>
+            </div>
+          </uib-tab>
+        </uib-tabset>
+      </div>
+    </div>
+  </div>
+</div>

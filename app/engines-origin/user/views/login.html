@@ -1,0 +1,63 @@
+<div class="wrapper">
+	<div class="wrapper_center">
+		<div class="operator_container">
+			<div class="menu">
+				<a href="#" class="menu_content">
+					<span class="menu_text" id="first">1. {{trans('sub_menu1')}}</span>
+				</a>	
+				<a href="#" class="menu_content">
+					<span class="menu_text" id="second">2. {{trans('sub_menu2')}}</span>
+				</a>
+				<a href="#" class="menu_content">
+					<span class="menu_text" id="third">3. {{trans('sub_menu3')}}</span> 
+				</a>	
+			</div>
+			<div class="left_menu_container_mobile">
+				<a href="#" class="left_menu_content_mobile">
+					<span class="menu_text_mobile"  id="first">1.</span>
+				</a>	
+				<a href="#" class="left_menu_content_mobile">
+					<span class="menu_text_mobile" id="second">2.</span>
+				</a>
+				<a href="#" class="left_menu_content_mobile">
+					<span class="menu_text_mobile" id="third">3.</span> 
+				</a>	
+			</div>
+			<div class="operator" id='operator_registr'>
+				<div class="operator_img">
+					<img src="/assets/callburn/images/operator1.png" />
+				</div>
+				<div class="operator_text">
+					<img src="/assets/callburn/images/text_area.png" class="text_area" />
+					<span class="text_right">
+						<span>{{trans('sub_menu')}}</span>
+						<img src="/assets/callburn/images/computer.png"  class="computer_img_left" />
+						<!-- Escribe tu numero de <font color="#FF5B36">TELEFONO</font> para ragistrarte  -->
+					</span>	
+				</div>	
+			</div>
+		</div>
+		<div class="login_form" id='login_form'>
+		<h1>
+			{{trans('login_title')}}
+		</h1>
+		<image src="/assets/callburn/images/123456.png" class="fire_logo" />
+		<p>
+			{{trans('login_text')}}
+		</p>
+		<div class="form">
+			<div class='errors' ng-show="loginErrorMessage">
+		        *{{loginErrorMessage}} 
+		    </div>
+			<form>
+				<input type="text" name="email" ng-model="loginData.email" placeholder="{{ trans('email_val') }}" class="number">
+				<input type="password" name="password" ng-model="loginData.password" placeholder="{{ trans('password_val') }}" class="number">
+				<button class="login_btn hvr-wobble-vertical" type="submit" ng-click="login()"> {{trans('login')}} </button>
+			</form>
+		</div>
+		<span class='form_span'>
+			{{trans('tango_cuenta')}}
+			<a ui-sref="registration" >{{trans('registration')}}</a>
+		</span>
+	</div>
+</div>

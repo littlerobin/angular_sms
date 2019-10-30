@@ -1,0 +1,40 @@
+<h3 class="title">{{trans('batch_step_2_review_data')}}</h3>
+<div class="col-lg-12 bordered container-section">
+    <div class="col-lg-12">
+        <div class="row">
+            <span class="text-jastify">{{trans('batch_step_2_messages_texts_imported')}}
+                        </span>
+            <div class="mt-30">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>{{trans('batch_step_2_phonenumbers')}}</th>
+                            <th>{{trans('batch_step_2_text_preview')}}</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr data-ng-repeat="phonenumberWithText in campaignData.phonenumbers_with_text | limitTo: 10: listingSkip  track by $index">
+                            <td contenteditable ng-keyup="inlineDataChanged('phonenumber', $index, $event)">
+                                <div class="pull-left phone">
+                                    <img ng-src="/assets/callburn/images/flags/{{phonenumberWithText.country_code}}.svg" alt="play button">
+                                    <span>{{phonenumberWithText.phonenumber}}</span>
+                                </div>
+                            </td>
+                            <td  contenteditable ng-keyup="inlineDataChanged('text', $index, $event)">
+                                <span>{{phonenumberWithText.text}}</span>
+                            </td>
+                            <td><i class="glyphicon glyphicon-trash pull-right"  ng-click="removeOneBatch($index)"></i></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <uib-pagination ng-if="isLoaded" total-items="campaignData.phonenumbers_with_text.length" ng-model="page" ng-chnage="changePage(page - 1)"
+                                    max-size="3" class="pagination-sm list-unstyled"
+                                    boundary-link-numbers="true" next-text="{{trans('next')}}"
+                    previous-text="{{trans('back')}}"></uib-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

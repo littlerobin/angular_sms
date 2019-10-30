@@ -1,0 +1,12 @@
+<div id="header">
+	<div id="header_menu">
+		<ul>
+			<li class="menu_content">
+				{{ currentUser.updated_at }}
+			</li>
+			<li class="menu_content">{{ currentUser.balance }} $</li>
+			<li class="menu_content">{{ currentUser.email }}</li>
+			<li class="menu_content" ng-click="logout()" > <a >{{ trans('log_out') }}</a></li>
+		</ul>	
+	</div>
+</div>

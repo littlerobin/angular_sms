@@ -1,0 +1,285 @@
+.groups_actions {
+  .contDev_item {
+    margin-left: auto;
+    width: 200px;
+    .disable_dropdown {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    ul.dropdown-menu {
+      left: initial;
+      min-width: 200px;
+      width: fit-content;
+      right: 0;
+      li {
+        a {
+          padding-left: 5px;
+          padding-right: 5px;
+        }
+      }
+    }
+  }
+  .table_styled {
+    thead,
+    tbody,
+    tr,
+    td,
+    th {
+      display: block;
+    }
+    th,
+    td {
+      flex: 1;
+    }
+    .callburn-checkbox-white {
+      label {
+        &::after {
+          left: 2px !important;
+        }
+      }
+    }
+    thead {
+      tr {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding-right: 16px;
+        th {
+          &.search {
+            min-height: 33px;
+            flex: 0 0 43px;
+          }
+          .search_input_holder {
+            display: flex !important;
+            flex-direction: row;
+            justify-content: space-between;
+            border-right: 1px solid #dce5eb;
+            padding-right: 5px;
+            background: #fff;
+            height: 33px;
+            input {
+              border-right: none !important;
+              width: 220px;
+              max-width: 220px;
+            }
+            .btn_holder {
+              display: flex;
+              flex-direction: row;
+              align-items: center;
+              justify-content: space-between;
+              height: 33px;
+              .btn_delete {
+                margin-right: 5px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                i {
+                  font-size: 20px;
+                  color: #303030;
+                  transition: color 0.3s;
+                  &:hover {
+                    color: red;
+                    transition: color 0.3s;
+                  }
+                }
+              }
+              .btn_search {
+                min-height: 25px;
+                height: 25px;
+                font-size: 14px;
+                padding: 0 2.5px;
+              }
+            }
+          }
+        }
+      }
+    }
+    tbody {
+      display: block;
+      max-height: 500px;
+      overflow-y: scroll;
+      padding: 0;
+      tr {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        transition: all 0.3s;
+        &:hover {
+          background: #eee !important;
+          transition: all 0.3s;
+        }
+        & > td {
+          &:first-child {
+            flex: 0 0 43px;
+          }
+        }
+      }
+      &.disabled {
+        opacity: 0.5;
+        tr {
+          cursor: not-allowed;
+        }
+      }
+      &.from_compose {
+        max-height: 180px;
+      }
+    }
+    &.loading {
+      opacity: 0.4;
+    }
+    .table_info {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      margin: 15px 0;
+      p {
+        font-size: 14px;
+        color: #303030;
+        span {
+          cursor: pointer;
+          user-select: none;
+          text-decoration: underline;
+          transition: color 0.3s;
+          &:hover {
+            color: #3190e6;
+            transition: color 0.3s;
+          }
+          &.all_selected {
+            font-weight: bold;
+            color: red;
+            transition: color 0.3s;
+          }
+        }
+        &.show_everything {
+          text-decoration: underline;
+          cursor: pointer;
+          margin-left: 5px !important;
+          transition: all 0.3s;
+          &:hover {
+            color: #3190e6;
+            transition: all 0.3s;
+          }
+          &.search_instead {
+            &.selected {
+              color: red;
+            }
+          }
+        }
+      }
+      div.left_info {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        * {
+          margin: 0;
+        }
+        p.value {
+          margin-left: 5px;
+        }
+      }
+      div.top_text {
+        p {
+          text-align: right;
+        }
+      }
+      @media screen and (max-width: 767px) {
+        flex-direction: column;
+      }
+    }
+    .scroll_down {
+      position: absolute;
+      bottom: 13px;
+      left: 50%;
+      margin-left: -17px;
+      user-select: none;
+      i {
+        cursor: pointer;
+        font-size: 35px;
+        color: #3190e6;
+      }
+    }
+    .my-table {
+      thead {
+        tr {
+          display: flex;
+          & > th:nth-child(2) {
+            flex: 50%;
+          }
+        }
+      }
+      tbody {
+        tr {
+          & > td:nth-child(2) {
+            flex: 50%;
+          }
+        }
+      }
+    }
+  }
+  .campaign-delete-spinner {
+    top: 50% !important;
+  }
+  .groups_handle {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    .flexer {
+      flex: 0.5;
+    }
+    .groups_inner {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+  @media screen and (max-width: 767px) {
+    .groups_handle {
+      .flexer {
+        display: none;
+      }
+      .groups_inner {
+        flex-direction: column;
+      }
+    }
+  }
+}
+
+.groups {
+  .btn-add {
+    margin-top: 18px;
+    min-height: 30px;
+  }
+  .mt-30 {
+    margin-top: 30px;
+    display: block;
+  }
+  .pull-right > .dropdown-menu {
+    right: -57px;
+  }
+
+  .success {
+    color: $callburn-blue;
+  }
+  .warrning {
+    color: $callburn-warning;
+  }
+  .blocked {
+    display: block;
+    float: left;
+    margin-top: 0;
+    padding-left: 10px;
+    &.callburn-checkbox-white [type="checkbox"]:not(:checked) + label,
+    &.callburn-checkbox-white [type="checkbox"]:checked + label {
+      padding-top: 10px;
+    }
+  }
+}

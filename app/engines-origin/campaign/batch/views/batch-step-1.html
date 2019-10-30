@@ -1,0 +1,85 @@
+<h1>{{trans('batch_step_1_uploade_your')}}</h1>
+<div class="col-lg-12 bordered container-section">
+    <span class="text-centered">{{trans('batch_step_1_you_can_send_multiple')}}</span><br>
+                            <span class="text-centered">{{trans('batch_step_1_phonenumber_should_contain')}}</span>
+    <div class="col-lg-12">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="row compose_sp">
+                    <div class="block-compose">
+                        <span class="compose_sp text-centered">
+                           {{trans('batch_step_1_choose_voice')}}
+                        </span>
+                    </div>
+                    <!-- <div class="listen_voice_container" ng-if="availableTts[campaignData.tts_language]">
+                        <audio id="ttsDemoAudio" ng-show="false" ng-src="{{getTTSUrl()}}"></audio>
+                        <span>{{trans('batch_step_1_listen_to_demo')}}</span>
+                        <img src="/assets/callburn/images/images/Play_Icon.svg" class="tts_select_play_icon" ng-click="playTTSDemo()">
+                    </div> -->
+                </div>
+                <div class="row">
+                    <div class="compose_method_container">
+                        <div class="compose_method">
+                            <div class="choose_lang_and_voice_container select-second-type">
+                                <ui-select ng-model="campaignData.tts_language"
+                                           theme="bootstrap"
+                                           id="languageId"
+                                           title="Choose an address">
+                                    <ui-select-match
+                                            placeholder="{{trans('compose_step_1_method_1_select_default')}}">{{$select.selected.selectView}}</ui-select-match>
+                                    <ui-select-choices
+                                            repeat="language.ttsEngine as language in CampaignComposeService.ttsLanguages | filter: $select.search track by $index"
+                                            ng-click="keepObject ? valueSelected(option,option,$index) : valueSelected(option[showAttr],option[keepAttr],$index)">
+                                        <div ng-bind-html="language.selectView | highlight: $select.search"></div>
+                                        <div class="ng-hide" ng-bind-html="language.ttsEngine | highlight: $select.search"></div>
+                                        <div class="ng-hide" ng-bind-html="language.languageName | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                            <!--<div class="choose_lang_and_voice_container">-->
+                                <!--<callburn-select-->
+                                        <!--ng-model="campaignData.tts_language"-->
+                                        <!--options="CampaignComposeService.ttsLanguages"-->
+                                        <!--show-attr="selectView"-->
+                                        <!--keep-attr='ttsEngine'-->
+                                        <!--image-url="/assets/callburn/images/images/t-t-s-icon@3x.svg"-->
+                                        <!--select-text="{{trans('compose_step_1_method_1_select_default')}}">-->
+                                <!--</callburn-select>-->
+                                <!--<div class="listen_voice_container" ng-show="ttsData.language">-->
+
+                                <!--</div>-->
+                            <!--</div>-->
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <span class="compose_sp text-centered">{{trans('batch_step_1_uploade_a_file')}}</span>
+                <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 file_uploader_container">
+
+                    <div nv-file-drop uploader="campaignBatchFileUpload"
+                         class="drag_drop col-lg-10 col-md-10 col-xs-10 col-sm-10">
+                        <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 centerd">
+                            <div class="row">
+                                <p ng-show="!uploadingAudioName" class="text-center">{{trans('batch_step_1_move_your_csv')}}
+                                    </p>
+                                <button class="btn btn-primary" ng-disabled="!campaignData.tts_language"
+                                        ng-click="openCampaignVoiceFileSelect()">{{trans('batch_step_1_choose_file')}}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <p ng-show="uploadingAudioName">{{uploadingAudioName}}</p>
+                    <div class="compose_drag_drop_input">
+                        <input ng-show="false" readonly="true" type="text" class="compose_method2_input"
+                               placeholder="{{trans('compose_step_1_method_2_input_placeholder')}}"/>
+                        <input ng-show="false" id="campaignDoNotCallFileInput" type="file" nv-file-select
+                               uploader="campaignBatchFileUpload"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

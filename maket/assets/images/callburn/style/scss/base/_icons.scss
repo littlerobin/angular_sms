@@ -1,0 +1,243 @@
+
+
+
+  .icon{
+    padding-left: 20px;
+    background-repeat: no-repeat;
+    background-size : contain;
+    span{
+      margin-left: 5px;
+      display: block;
+      &:hover{
+      span{
+        color: $callburn-blue;
+      }
+    }
+  }
+}
+  .icon-lg{
+    padding-left: 32px;
+    background-repeat: no-repeat;
+    background-size : contain;
+    span{
+      margin-top: 10px;
+      margin-left: 5px;
+      display: block;
+      &:hover{
+      span{
+        color: $callburn-blue;
+      }
+    }
+    }
+
+   }
+
+
+.callburn-icon{
+    width: 20px;
+      height: 20px;
+      padding-left: 20px;
+      background-repeat: no-repeat;
+      background-size : cover;
+}
+
+.icon-settings{
+  background-image: url("../../../maket/assets/images/tweak-icon@3x.png");
+    &:hover{
+    background-image: url("../../../maket/assets/images/tweak-icon@3x.png");
+}
+
+}
+
+.icon-dashboard{
+  background-image: url("../../../maket/assets/images/dashboard-icon@3x.svg");
+    &:hover{
+    background-image: url("../../../maket/assets/images/dashboard-icon@3x-blue.svg");
+    }
+    &.active{
+      background-image: url("../../../maket/assets/images/dashboard-icon@3x-blue.svg");
+    }
+
+}
+
+.icon-messages {
+  background-image: url("../../../maket/assets/images/messages-icon@3x.png");
+  background-size: 25px 29px;
+  background-color: white;
+  margin-top: 0px !important;
+    &:hover{
+    background-image: url("../../../maket/assets/images/messages-icon@3x-blue.png");
+    }
+    &.active{
+      background-image: url("../../../maket/assets/images/messages-icon@3x-blue.png");
+    }
+}
+
+.icon-phonebook{
+  background-image: url("../images/phonebook-icon@3x.png");
+    &:hover{
+    background-image: url("../images/phonebook-icon@3x-blue.png");
+    }
+    &.active{
+      background-image: url("../images/phonebook-icon@3x-blue.png");
+    }
+}
+.icon-api{
+  background-image: url("../images/api.png");
+    &:hover{
+    background-image: url("../images/api-blue.png");
+  }
+  &.active{
+    background-image: url("../images/api-blue.png");
+  }
+  &.api-dark{
+      background-image: url("../images/api.png");
+    &:hover{
+      background-image: url("../images/Lighter@3x.png");
+    }
+    &.disabled{
+      background-image: url("../images/Lighter@3x.png");
+    }
+  }
+
+}
+.icon-support{
+  margin-left: 8px;
+  background-image: url("../images/support-icon@3x.png");
+    &:hover{
+      background-image: url("../images/support-icon@3x-blue.png");
+    }
+    &.active{
+    background-image: url("../images/support-icon@3x-blue.png");
+  }
+}
+  .icon-invoice{
+    background-image: url("../images/invoice-icon-normal.svg");
+      &:hover{
+        background-image: url("../images/Invoices-Icon@3x.svg");
+    }
+    width: 20px;
+  }
+
+.icon-overview{
+  background-image: url("../images/subsections/normal/Overview@3x.svg");
+    &:hover{
+      background-image: url("../images/subsections/active/Overview@3x.svg");
+      }
+    &.active{
+      background-image: url("../images/subsections/active/Overview@3x.svg");
+    }
+  }
+.icon-templates{
+  background-image: url("../images/subsections/normal/Templates38@3x.svg");
+    &:hover{
+      background-image: url("../images/subsections/active/Templates38@3x.svg");
+  }
+  &.active{
+    background-image: url("../images/subsections/active/Templates38@3x.svg");
+  }
+}
+.icon-batch{
+  background-image: url("../images/subsections/normal/Batch_send3x.svg");
+    &:hover{
+      background-image: url("../images/subsections/active/Batch_send3x.svg");
+    }
+    &.active{
+      background-image: url("../images/subsections/active/Batch_send3x.svg");
+    }
+}
+
+  .icon-trash{
+    background-image: url("../images/icons-trash@3x.png");
+      &:hover{
+        background-image: url("../images/icons-trash@3x-hover.png");
+    }
+  }
+
+  .icon-phone{
+    background-image: url("../images/phone-icon@3x-table.png");
+      &:hover{
+        background-image: url("../images/phone-icon@3x-table.png");
+  }
+  }
+
+  .icon-play{
+    padding: 15px !important;
+    opacity: 0.8;
+    display: block;
+    background-image: url("../images/Play_Icon@3x.png");
+      &:hover{
+        opacity: 1;
+    }
+    &.black{
+      background-image: url("../images/PauseIcon@3x.png");
+    }
+    &.active{
+      &.play{
+      background-image: url("../images/WhitePlay@3x.png");
+      }
+      &.pause{
+        background-image: url("../images/WhitePauseIcon@3x.png")!important;
+      }
+    }
+  }
+
+  .icon-people{
+    background-image: url("../images/subsections/normal/Overviews@3x.svg");
+      &:hover{
+        background-image: url("../images/subsections/active/Overviews@3x.svg");
+      }
+      &.active{
+        background-image: url("../images/subsections/active/Overviews@3x.svg");
+      }
+  }
+
+  .icon-groups{
+    background-image: url("../images/groups-icon@3x.png");
+      &:hover{
+        background-image: url("../images/groups-icon@3x-blue.png");
+  }
+    &.active{
+      background-image: url("../images/groups-icon@3x-blue.png");
+    }
+  }
+
+
+  .icon-import{
+    background-image: url("../images/subsections/normal/Batch3x.svg");
+      &:hover{
+        background-image: url("../images/subsections/active/Batch3x.svg");
+      }
+      &.active{
+        background-image: url("../images/subsections/active/Batch3x.svg");
+      }
+  }
+
+  .icon-evro{
+    background-image: url("../images/group@3x.png");
+      &:hover{
+        background-image: url("../images/import-icon@3x.png");
+      }
+  }
+
+  .icon-caller-id{
+
+    background-image: url("../images/group@3x.png");
+      &:hover{
+        background-image: url("../images/import-icon@3x.png");
+    }
+    &.active{
+        background-image: url("../images/import-icon@3x.png");
+    }
+  }
+
+  .icon-pdf{
+    height: 20px;
+    background-image: url("../images/p-d-f-icon@3x.png");
+      &:hover{
+        background-image: url("../images/p-d-f-icon@3x.png");
+  }
+    &.active{
+      background-image: url("../images/p-d-f-icon@3x.png");
+  }
+  }

@@ -1,0 +1,14 @@
+node_modules/
+bower_components/
+
+dist/app.js
+index.html
+
+dist/
+.idea
+app/config/config.js
+
+
+assets/\.DS_Store
+
+\.DS_Store

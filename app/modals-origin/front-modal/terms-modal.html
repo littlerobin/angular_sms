@@ -1,0 +1,73 @@
+<div class="login-modal">
+    <div class="modal-header ">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" data-ng-click="hideOverlay()"><span
+                aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="modal-body scrolable">
+        <div class="row">
+            <span class="login-title"><span class="bold"> {{trans('modals_front_modal_terms_modal_terms')}}</span> {{trans('modals_front_modal_terms_modal_and_conditions')}}</span>
+            <span class="login-subtitle">({{trans('modals_front_modal_terms_modal_clear_and_trasparent')}})</span>
+            <div class="col-lg-10 col-lg-offset-1">
+                <p class="conditions_modal_sp">{{trans('terms_conditions_modal_text_terms_and_conditions')}}</p>
+                <p class="conditions_modal_sp">{{trans('terms_conditions_modal_text_the_following_terms')}}</p>
+                <p class="conditions_modal_sp">{{trans('terms_conditions_modal_text_by_registering')}}</p>
+                <p class="conditions_modal_sp">1. {{trans('terms_conditions_modal_text_general')}}</p>
+                <p class="conditions_modal_sp">{{trans('terms_conditions_modal_text_callburn_services_reserves')}}</p>
+                <p class="conditions_modal_sp">2. {{trans('terms_conditions_modal_text_services_costs')}}</p>
+                <p class="conditions_modal_sp">{{trans('terms_conditions_modal_text_all_prices_mentioned')}}</p>
+
+                <p class="conditions_modal_sp">3. {{trans('terms_conditions_modal_text_user_obligations')}}</p>
+                <p class="conditions_modal_sp">{{trans('terms_conditions_modal_text_the_user_must')}}</p>
+
+                <div class="conditions_modal_sp">•{{trans('terms_conditions_modal_text_the_user_is')}}</div>
+            <div
+                    class="conditions_modal_sp">•{{trans('terms_conditions_modal_text_callburn_services_considers')}}</div>
+            <div
+                    class="conditions_modal_sp">•{{trans('terms_conditions_modal_text_callburn_services_or_interests')}}</div>
+                <span class="conditions_modal_sp">•{{trans('terms_conditions_modal_text_for_any_other_act')}}</span>
+                <p class="conditions_modal_sp">{{trans('terms_conditions_modal_text_complaints_regarding_services')}}</p>
+                <div class="conditions_modal_sp">1. {{trans('terms_conditions_modal_text_spam')}}</div>
+                <div class="conditions_modal_sp">2. {{trans('terms_conditions_modal_text_violation_of_copyright')}}</div>
+                <div class="conditions_modal_sp">3. {{trans('terms_conditions_modal_text_deception_to_others')}}</div>
+                <div class="conditions_modal_sp">4. {{trans('terms_conditions_modal_text_abuse_of_texts')}}</div>
+            <div
+                    class="conditions_modal_sp">5. {{trans('terms_conditions_modal_text_offering_products_or_services')}}</div>
+                <div class="conditions_modal_sp">6. {{trans('terms_conditions_modal_text_comply_with_spanish_law')}}</div><br>
+                <p class="conditions_modal_sp">4. {{trans('terms_conditions_modal_text_payment_terms')}}</p>
+                <p class="conditions_modal_sp">{{trans('terms_conditions_modal_text_the_services_provided')}}</p>
+                <p class="conditions_modal_sp">5. {{trans('terms_conditions_modal_text_general_liability')}}</p>
+                <p class="conditions_modal_sp">
+                    {{trans('terms_conditions_modal_text_callburn_services_is_never_liable')}}</p>
+                <p class="conditions_modal_sp">6. {{trans('terms_conditions_modal_text_privacy')}}</p>
+                <p class="conditions_modal_sp">{{trans('terms_conditions_modal_text_callburn_services_does_not')}}</p>
+
+
+                <ul>
+                    <li>{{trans('terms_conditions_modal_text_limited_time')}}</li>
+                    <li>{{trans('terms_conditions_modal_text_two_factor')}}</li>
+                    <li>{{trans('terms_conditions_modal_text_access_based')}}</li>
+                    <li>{{trans('terms_conditions_modal_text_the_principle')}}</li>
+                    <li>{{trans('terms_conditions_modal_text_registration_and_detailed')}}</li>
+                    <li>{{trans('terms_conditions_modal_text_policy_outsourcing')}}</li>
+                    <li>{{trans('terms_conditions_modal_text_policy_data_retention')}}</li>
+                    <li>{{trans('terms_conditions_modal_text_the_use_of_head')}}</li>
+                    <li>{{trans('terms_conditions_modal_text_required_a_certificate')}}</li>
+                </ul>
+
+
+                <p class="conditions_modal_sp">7. {{trans('terms_conditions_modal_text_miscellaneous')}}</p>
+                <p class="conditions_modal_sp">{{trans('terms_conditions_modal_text_if_the_agreement')}}</p>
+                <p class="conditions_modal_sp">8. {{trans('terms_conditions_modal_text_spanish_law')}}</p>
+                <p class="conditions_modal_sp">{{trans('terms_conditions_modal_text_for_any_agreement')}}</p>
+            </div>
+
+        </div>
+    </div>
+    <div class="modal-footer">
+
+
+        <span class="text-extra">{{trans('terms_conditions_modal_text_any')}} <span class="bold">{{trans('terms_conditions_modal_text_questions')}}?</span></span>
+        <span class="text-big">(<a data-ng-click="openChatWindow()"><span class="bold">  {{trans('terms_conditions_modal_text_chat')}}</span></a> {{trans('terms_conditions_modal_text_with_us_we')}})</span>
+        <button class="btn btn-primary full-width modal-button-margin" data-ng-click="hideOverlay()">{{trans('terms_conditions_modal_text_close_this_window')}}</button>
+    </div>
+</div>

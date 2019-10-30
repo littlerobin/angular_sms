@@ -1,0 +1,42 @@
+<nav class="navbar navbar-inverse navbar-black">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"  ng-init="navCollapsed = true"
+                    ng-click="navCollapsed = !navCollapsed">
+                <span class="sr-only">{{trans('include_front_nav_all_black_toggle_navigation')}}</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#"><img src="/assets/front/images/call-burn-l-o-g-o@3x.svg" class="img-responsive"></a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" ng-class="!navCollapsed && 'in'">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#" ui-sref="features">{{trans('include_front_nav_all_black_features')}}</a></li>
+                <li><a href="#" ui-sref="price">{{trans('include_front_nav_all_black_pricing')}}</a></li>
+                <li><a href="#" ui-sref="developers">{{trans('include_front_nav_all_black_developers')}}</a></li>
+                <li><a href="#" ui-sref="docs">{{trans('include_front_nav_all_black_docs')}}</a></li>
+                <li><a href="#" ui-sref="contact-us">{{trans('include_front_nav_all_black_contact_us')}}</a></li>
+                <li><a  data-ng-click="showLoginModal()">{{trans('include_front_nav_all_black_login')}}</a></li>
+                <li><a data-ng-click="showRegistrationModal()">{{trans('include_front_nav_all_black_register')}}</a></li>
+                <li class="dropdown"  uib-dropdown keyboard-nav>
+
+                        <callburn-select
+                                ng-model="language"
+                                options="languages"
+                                show-attr="name"
+                                keep-attr='code'
+                                image-attr="flags"
+                                select-text="{{currentLanguageName | uppercase}}"
+                                image-url="/assets/callburn/images/lang-flags/{{currentLanguage}}.svg"
+                                ng-change="changeLanguage(language)" class="language_change global_class">
+                        </callburn-select>
+
+                </li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>

@@ -1,0 +1,131 @@
+
+<div class="wrapper">
+	<div class="wrapper_center">
+		<div class="operator_container">
+			<div class="menu">
+				<a href="#" class="menu_content">
+					<span class="menu_text" id="first">1. {{trans('sub_menu1')}}</span>
+				</a>	
+				<a href="#" class="menu_content">
+					<span class="menu_text" id="second">2. {{trans('sub_menu2')}}</span>
+				</a>
+				<a href="#" class="menu_content">
+					<span class="menu_text" id="third">3. {{trans('sub_menu3')}}</span> 
+				</a>	
+			</div>
+			<div class="operator" id='operator_code'>
+				<div class="operator_img">
+					<img src="/assets/callburn/images/operator4.png" />
+				</div>
+				<div class="operator_text">
+					<img src="/assets/callburn/images/text_area.png"  class="text_area" />
+					<img src="/assets/callburn/images/phone.png"  class="computer_img_right" />
+					<span class="text_left">
+					 	<!--You will receive a <font color="#FF5B36">CALL</font> with your code-->
+					</span>	
+				</div>	
+			</div>
+			<div class="operator" id='operator_verification' style='display:none'>
+				<div class="operator_img">
+					<img src="/assets/callburn/images/operator3.png" />
+				</div>
+				<div class="operator_text">
+					<img src="/assets/callburn/images/text_area.png"  class="text_area" />
+					<img src="/assets/callburn/images/message.png"  class="computer_img_left" />
+					<span class="text_right">
+						<!-- We have sant <font color="#FF5B36">MESSAGE</font> to your mail -->
+					</span>	
+				</div>	
+			</div>
+			<div class="operator" id='operator_password' style='display:none'>
+				<div class="operator_img">
+					<img src="/assets/callburn/images/operator2.png" />
+				</div>
+				<div class="operator_text">
+					<img src="/assets/callburn/images/text_area.png"  class="text_area" />
+					<img src="/assets/callburn/images/computer.png"  class="computer_img_left" />
+					<span class="text_right">
+						{{trans('sub_menu_registr')}}
+					</span>	
+				</div>	
+			</div>
+		</div>
+		<div class="login_form" ng-show='registrationStep == 0' id='registration_form'>
+			<div class='errors' ng-show="registrationErrorMessage">
+		        *{{registrationErrorMessage}} 
+		    </div>
+			<h1>
+				{{trans('registr_title')}}
+			</h1>
+			<p>
+				{{trans('registr_text')}}
+			</p>
+			<div class="form">
+				<select ng-model="verificationData.phonenumberCode">
+					<option ng-repeat="callRoute in callRoutes" value="{{callRoute.phonenumber_prefix}}">{{callRoute.phonenumber_prefix}}</option>
+				</select>
+				<input type="text" placeholder="{{ trans('telephone_val') }}" class="number" ng-model="verificationData.phonenumber" />
+				<button class="call_btn hvr-wobble-vertical" ng-click="sendVerificationCall()">{{trans('call_now')}}</button>
+			</div>
+			<span class='form_span'>{{trans('cuenta')}}, <a href="#" id='login'>{{trans('entrar')}}</a></span>
+		</div>
+		<div class="login_form" id='code_form' ng-show='registrationStep == 1'>
+			<div class='errors' ng-show="registrationErrorMessage">
+		        *{{registrationErrorMessage}} 
+		    </div>
+			<h1>
+				{{trans('registr_title1')}}
+			</h1>
+			<image src="/assets/callburn/images/123456.png" class="fire_logo" />
+			<p>
+				{{trans('registr_text1')}}
+			</p>
+			<div class="form">
+				<input type="text" ng-model="verificationCode.firstLetter" class="code" maxlength="1" />
+				<input type="text" ng-model="verificationCode.secondLetter" class="code" maxlength="1" />
+				<input type="text" ng-model="verificationCode.thirdLetter" class="code" maxlength="1" />
+				<input type="text" ng-model="verificationCode.fourthLetter" class="code" maxlength="1" />
+				<span class="call_btn hvr-wobble-vertical" ng-click="registrationStep = 2;"> {{trans('sumbit')}} </span>
+			</div>
+			<span class='form_span'>{{trans('llamada')}}, <a ui-sref="login">{{trans('nuevo')}}</a></span>
+		</div>
+		<div class="login_form" id='verification_form' ng-show='registrationStep == 2'>
+			<div class='errors' ng-show="registrationErrorMessage">
+		        *{{registrationErrorMessage}} 
+		    </div>
+			<h1>
+				{{trans('registr_title2')}}
+			</h1>
+			<image src="/assets/callburn/images/123456.png" class="fire_logo" />
+			<p>
+				{{trans('registr_text2')}}
+			</p>
+			<div class="form">
+				<input type="text" placeholder="{{trans('email_val')}}" class="email" ng-model="registrationData.email" />
+				<span class="call_btn hvr-wobble-vertical" id='next_verification' ng-click="registrationStep = 3;"> {{trans('reenviar')}} </span>
+			</div>
+		</div>
+		<div class="login_form" id='password_form' ng-show="registrationStep == 3">
+			<div class='errors' ng-show="registrationErrorMessage">
+		        *{{registrationErrorMessage}} 
+		    </div>
+			<h1>
+				{{trans('registr_title3')}}
+			</h1>
+			<image src="/assets/callburn/images/123456.png" class="fire_logo" />
+			<p>
+				{{trans('registr_text2')}}
+			</p>
+			<div class="form">
+				<input type="password" placeholder="{{ trans('choose_password') }}" class="password" ng-model="registrationData.password" />
+				<input type="password" placeholder="{{ trans('repeat_password') }}" class="password" ng-model="registrationData.password_confirmation" />
+				<div class="checkbox_container">
+					<input type="checkbox" ng-model="registrationData.terms_of_conditions" value="1">
+					{{trans('checkbox_val')}}
+				</div>	
+				<button class="login_btn hvr-wobble-vertical" ng-click="makeRegistration()"> {{trans('login')}} </button>
+			</div>	
+		</div>
+		
+	</div>	
+</div>

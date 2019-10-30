@@ -1,0 +1,1 @@
+angular.module("callburnApp").controller("CreateConferenceCall",["$scope","$rootScope","$state","$stateParams",function($scope,$rootScope,$state,$stateParams){}]);

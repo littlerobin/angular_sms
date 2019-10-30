@@ -1,0 +1,1 @@
+angular.module("callburnApp").controller("WelcomeController",["$scope","$rootScope","$state","$stateParams",function($scope,$rootScope,$state,$stateParams){$rootScope.showNavbar=!1,"index"!=$stateParams.tutorial&&$state.go("dashboard.dashboard")}]);

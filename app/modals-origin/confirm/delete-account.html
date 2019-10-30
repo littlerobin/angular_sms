@@ -1,0 +1,21 @@
+<div class="new_modal_style red delete_account_modal">
+    <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">{{trans('Confirm_action')}}</h4>
+        <i data-ng-click="hideOverlay()" class="fa fa-times"></i>
+    </div>
+    <div class="modal-body">
+        <div class="modal_window">
+            <div class="modal_container">
+                <div class="modal_select_container text-center">
+                    <p>
+                        {{trans('delete_account_text')}}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer text-center">
+        <input ng-model="deleteData.currentPassword" type="password" placeholder="{{trans('modals_settings_edit_profile_modal_current_password')}}">
+        <button class="btn btn-danger" ng-disabled="!deleteData.currentPassword" ng-click="deleteConfirmation()">{{trans('confirm_irreversible_action')}}</button>
+    </div>
+</div>

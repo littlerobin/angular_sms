@@ -1,0 +1,110 @@
+<div class="window" id='myModal_noCall_content' ng-show="showDoNotCallModal">
+	<div class="pop_up" id='myModal_noCall'>
+		<div class="pop_up_center">
+			<a href="#"><img src="/assets/callburn/images/000.png" class="exit exit_noCall"></a>
+			<div class="pop_up_text">
+				<h1>{{trans('title_modal_dontcolback')}}</h1>
+			</div>
+			<div class="icon_div_popup">
+				<div class="icon_and_title">
+					<img src="/assets/callburn/images/22.png" class="popup_icons" />
+					<span>{{trans('dontcolback')}}</span>
+				</div>
+				<div class="icon_div_popup_right">
+					<span>{{trans('pulse')}}</span>
+					<select class="popup_select">
+						<option selected>1</option>
+						<option>2</option>
+					</select>
+				</div>		
+			</div>
+			<h4 class="message_title">{{trans('dontcolback_menu')}}</h4>
+			<span id='grabar' ng-show="doNotCallModalStep == 1">
+				<div class="popup_message">
+					<div class="message_icons">
+						<img class='grabar_menu' src="/assets/callburn/images/10.png">
+						<span>{{trans('grabar')}}</span>
+					</div>
+					<div class="message_icons">
+						<img class='subir_menu' src="/assets/callburn/images/20.png">
+						<span>{{trans('subir')}}</span>
+					</div>
+					<div class="message_icons">
+						<img class='escribir_menu' src="/assets/callburn/images/21.png">
+						<span>{{trans('escribir')}}</span>
+					</div>
+				</div>
+				<div class="bottom_div">
+					<div class="record_message_popup">
+						<img src="/assets/callburn/images/play.png" id="play1" class="record_imgs" style='display:none'>
+						<img src="/assets/callburn/images/record.png" id="record1" class="record_imgs">
+						<img src="/assets/callburn/images/minuts20.png" id='totalModal2' class="record_imgs" style='display:none'>
+						<div id='timerModal2' class="timer_modal2"></div>
+						<div id='totalTimeModal2' class="total_time_modal2"></div>
+					</div>
+					<audio controls src="" style='display:none' id="audio1"></audio>
+					{!! Form::hidden('record_donot', null,['id' => 'record_donot']) !!}
+				</div>	
+			</span>
+			<span id='subir' ng-show="doNotCallModalStep == 2">
+				<div class="popup_message">
+					<div class="message_icons">
+						<img class='grabar_menu' src="/assets/callburn/images/19.png">
+						<span>{{trans('grabar')}}</span>
+					</div>
+					<div class="message_icons">
+						<img class='subir_menu' src="/assets/callburn/images/11.png">
+						<span>{{trans('subir')}}</span>
+					</div>
+					<div class="message_icons">
+						<img class='escribir_menu' src="/assets/callburn/images/21.png">
+						<span>{{trans('escribir')}}</span>
+					</div>
+				</div>
+				<div class="bottom_div">
+					<div class="popup_upload">
+						<div class="upload_file_form">
+							<input type="text" id='value_upload_voicefile_sound' placeholder="Voice recording file..." class="uploding_file" />
+							{!! Form::file('donotVoicefile_sound', array('id' => 'upload_voicefile_sound','style' => 'display:none')) !!}
+							<label for='upload_voicefile_sound' class="uploading_btn">{{trans('upload')}}</label>
+						</div>
+						<div class="dropzone drag_file" id="dropzoneFileUpload2" style='overflow:hidden'>
+				        </div>
+				        {!! Form::text('donotFile', null, ['id' => 'drop_file2', 'style' => 'display:none']) !!}
+					</div>
+				</div>	
+			</span>
+			<span id='escribir' ng-show="doNotCallModalStep == 3">
+				<div class="popup_message">
+					<div class="message_icons">
+						<img class='grabar_menu' src="/assets/callburn/images/19.png">
+						<span>{{trans('grabar')}}</span>
+					</div>
+					<div class="message_icons">
+						<img class='subir_menu' src="/assets/callburn/images/20.png">
+						<span>{{trans('subir')}}</span>
+					</div>
+					<div class="message_icons">
+						<img class='escribir_menu' src="/assets/callburn/images/12.png">
+						<span>{{trans('escribir')}}</span>
+					</div>
+				</div>
+				<div class="bottom_div">
+					<div class="write_message_popup">
+						<div class="write_message">
+							{!! Form::textarea('voiceMessage', null, array('id' => 'donot_audion_text','class' => 'text_area', 'placeholder' => trans('message'))) !!}
+							<textarea class="text_area" ng-model="doNotCallTts.text"></textarea>
+						</div>
+						<div class="write_message">
+							{!! Form::select('voiceLang', $lang, null, ['id' => 'voiceLang', 'class' => 'write_message_country']) !!}
+							<span id = 'add_audio_donot'  class="ok1">{{trans('modals_create_campaign_do_not_call_save')}}</span>
+						</div>
+					</div>	
+				</div>	
+			</span>
+			<div class="accepting_btns">
+				<span id="base641" class="ok exit_noCall">{{trans('ok')}}</span>
+			</div>
+		</div>
+	</div>
+</div>
