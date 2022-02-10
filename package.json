@@ -416,7 +416,7 @@
     "gulp-rev-timestamp": "0.0.1",
     "gulp-sass": "^2.3.0",
     "ngclipboard": "^1.1.1",
-    "node-sass": "^4.5.3",
+    "node-sass": "^7.0.0",
     "socket.io-client": "^2.1.1",
     "through2": "^2.0.3"
   },
